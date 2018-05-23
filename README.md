@@ -10,3 +10,5 @@ To provide a learning and comparison application for newcomers in the world of c
 
 ### High level responsibilities
  Currently working on dividing responsibilities. We tend to be versatile as a group and pitch in where needed. We will have more concrete descriptions by thursday. 
+
+ ![title image](title.png)
