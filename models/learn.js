@@ -30,7 +30,7 @@
       website: {
         type:DataTypes.String,
         allowNull: false,
-      }
+      },
       shortDesc: {
         type:DataTypes.TEXT,
         allowNull: false,
