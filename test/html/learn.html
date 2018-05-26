@@ -5,12 +5,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
     <link rel="stylesheet" href="/assets/css/style.css" type="text/css">
     
-		<title>Cryptoverse: To the Moon!</title>
+		<title>Cryptoverse: To the Moon! | Learn</title>
 		<script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 		<script src="/assets/js/logic.js"></script>
-</head>
-<body>
+  </head>
+  <body>
 
 <!-- {{!-- NAV HEADER --}} -->
   <nav class = "nav-extended">
@@ -35,24 +35,61 @@
     </div>
   </nav>
   
-  <div class = "about-section">
-    <div class = "container">
-      <div class="col s12">
-        <h2>Compare Currencies</h2>
-        <p>Select two curreiences below to compare!  </p>
+<!-- W3 SCHOOL SLIDER -->
+<!-- <script>
+  var slideIndex = 1;
+  showDivs(slideIndex);
+
+  function plusDivs(n) {
+      showDivs(slideIndex += n);
+  }
+
+  function showDivs(n) {
+      var i;
+      var x = document.getElementsByClassName("mySlides");
+      if (n > x.length) {slideIndex = 1} 
+      if (n < 1) {slideIndex = x.length} ;
+      for (i = 0; i < x.length; i++) {
+          x[i].style.display = "none"; 
+      }
+      x[slideIndex-1].style.display = "block"; 
+  }
+</script>
+
+  <div class="w3-content w3-display-container">
+      <img class="mySlides" src="img_nature.jpg">
+      <img class="mySlides" src="img_fjords.jpg">
+      <img class="mySlides" src="img_mountains.jpg">
+      <div class="w3-center w3-display-bottommiddle" style="width:100%">
+        <div class="w3-left" onclick="plusDivs(-1)">&#10094;</div>
+        <div class="w3-right" onclick="plusDivs(1)">&#10095;</div>
+        <span class="w3-badge demo w3-border" onclick="currentDiv(1)"></span>
+        <span class="w3-badge demo w3-border" onclick="currentDiv(2)"></span>
+        <span class="w3-badge demo w3-border" onclick="currentDiv(3)"></span>
+      </div>
+    </div> -->
+
+  <div class = "info-slider">
+    <!-- <div class = "container"> -->
+      <div class = "col s12">
+        INFO-SLIDER
       </div>
     </div>
   </div>
-  <div class = "comparison-box">
+
+  <div class = "icon-list">
     <div class = "container">
-
-      <div class = "col s6">
-        LEFT COLUMN
+      <div class = "col s12">
+        ICON SELECTORS
       </div>
-      <div class = "col s6">
-        RIGHT COLUMN
-      </div>
+    <!-- </div> -->
+  </div>
 
+  <div class = "coin-info">
+    <div class = "container">
+      <div class = "col s12">
+        COIN PARTIALS
+      </div>
     </div>
   </div>
 
@@ -76,4 +113,5 @@
       </div>
     </div>
   </footer>
+
 </body>
