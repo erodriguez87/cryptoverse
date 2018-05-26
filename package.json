@@ -1,0 +1,29 @@
+{
+  "name": "cryptoverse",
+  "version": "1.0.0",
+  "description": "## Team Members:  Susan Davenport, Allen Welch, Eddie Rodriguez ## GitHub URL:  https://github.com/erodriguez87/cryptoverse",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erodriguez87/cryptoverse.git"
+  },
+  "author": "Allen Welch, Eddie Rodriguez, Susan Davenport",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/erodriguez87/cryptoverse/issues"
+  },
+  "homepage": "https://github.com/erodriguez87/cryptoverse#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
+    "sequelize": "^4.37.10"
+  }
+}
