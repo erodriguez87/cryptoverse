@@ -16,7 +16,8 @@ app.set("view engine", "handlebars");
 
 // Routes ==============================
 require("./routes/html-routes.js")(app);
-// require("./routes/user-api-routes.js")(app);
+require("./routes/user-api-routes.js")(app);
+require("./routes/learn-api-routes.js")(app);
 // require("./routes/crypto-api-routes.js")(app);
 
 // Sequelize Sync ======================
