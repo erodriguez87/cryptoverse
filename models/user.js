@@ -19,7 +19,7 @@
         type: DataTypes.STRING,
         allowNull: false,
       },
-      userId: {
+      email: {
         type: DataTypes.STRING,
         allowNull: false,
       },
