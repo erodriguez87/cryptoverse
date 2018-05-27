@@ -16,7 +16,6 @@ const db = {};
 
 let sequelize = new Sequelize(config.database, config.username, config.password, config);
 
-// DON'T NEED? ONLY FOR ADDING HTML PAGES, NOT HANDLEBARS?
 fs
   .readdirSync(__dirname)
   .filter(function(file) {

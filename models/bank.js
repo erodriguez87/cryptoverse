@@ -1,8 +1,8 @@
 // Defining the User model
 
   // brings in the sequelize library and the second one brings in the connection to db
-  const Sequelize = require("sequelize");
-  const sequelize = require("../config/connection.js");
+  // const Sequelize = require("sequelize");
+  // const sequelize = require("../config/connection.js");
 
   // model set up to save information about what coins each user holds and how much they hold of each.
   module.exports = function(sequelize, DataTypes) {

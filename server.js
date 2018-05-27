@@ -26,3 +26,5 @@ db.sequelize.sync({ force: false }).then(function() {
     console.log("App listening on PORT " + PORT);
   });
 });
+
+// REMEMBER TO CHANGE FORCE IN SYNC ABOVE TO FALSE
