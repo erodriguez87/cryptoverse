@@ -28,5 +28,15 @@
         allowNull: false,
       },
     }); 
+
+    Bank.associate = function(models) {
+      // Banked coins should belong to users
+      // A coin can't be added without a user existing through the foreign key
+      Bank.belongsTo(models.User, {
+        foreignKey: {
+          allowNull: false
+        }
+      });
+    };
     return Bank;
   };

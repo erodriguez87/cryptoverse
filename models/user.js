@@ -28,5 +28,14 @@
         allowNull: false,
       }
     }); 
+
+    User.associate = function(models) {
+      // Associating Users with banked coins
+      // Deleted coins when user is deleted
+      Author.hasMany(models.Bank, {
+        onDelete: "cascade"
+      });
+    };
+
     return User;
   };
