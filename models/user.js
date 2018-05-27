@@ -24,7 +24,7 @@
         allowNull: false,
       },
       password: {
-        type: DataTypes.String,
+        type: DataTypes.STRING,
         allowNull: false,
       }
     }); 
@@ -32,7 +32,7 @@
     User.associate = function(models) {
       // Associating Users with banked coins
       // Deleted coins when user is deleted
-      Author.hasMany(models.Bank, {
+      User.hasMany(models.Bank, {
         onDelete: "cascade"
       });
     };
