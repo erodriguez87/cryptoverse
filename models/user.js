@@ -1,8 +1,8 @@
 // Defining the User model
 
   // brings in the sequelize library and the second one brings in the connection to db
-  const Sequelize = require("sequelize");
-  const sequelize = require("../config/connection.js");
+  // const Sequelize = require("sequelize");
+  // const sequelize = require("../config/connection.js");
 
   // table set up to save user information.
   module.exports = function(sequelize, DataTypes) {
@@ -10,6 +10,7 @@
       id: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        autoIncrement: true, 
         validate: {
           len: [1]
         },

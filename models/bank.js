@@ -19,10 +19,10 @@
         type: DataTypes.STRING,
         allowNull: false,
       },
-      userId: { //used for user email
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
+      // userId: { //used for user email
+      //   type: DataTypes.STRING,
+      //   allowNull: false,
+      // },
        value: {
         type:DataTypes.DOUBLE,
         allowNull: false,

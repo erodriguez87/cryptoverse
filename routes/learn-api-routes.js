@@ -1,7 +1,7 @@
 var db = require("../models");
 // db.Learn
 
-console.log(db.Learn); 
+console.log("db.Learn " + db.Learn); 
 
 module.exports = function(app) {
 
