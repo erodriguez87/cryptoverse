@@ -1,9 +1,5 @@
 // Defining the learn model
 
-  // brings in the sequelize library and the second one brings in the connection to db
-  const Sequelize = require("sequelize");
-  const sequelize = require("../config/connection.js");
-
   // model set up for facts about each of the cryptocurrencies that users can learn about. These are research items that are manually saved to the database by administrators
   module.exports = function(sequelize, DataTypes) {
     var Learn = sequelize.define("Learn", {
