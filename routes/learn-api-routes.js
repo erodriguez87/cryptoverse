@@ -1,6 +1,8 @@
 var db = require("../models");
 // db.Learn
 
+console.log(db.Learn); 
+
 module.exports = function(app) {
 
   // GET single coin info
