@@ -20,11 +20,11 @@
         allowNull: false,
       },
       github: {
-        type: DataTypes.String,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       website: {
-        type:DataTypes.String,
+        type:DataTypes.STRING,
         allowNull: false,
       },
       shortDesc: {
