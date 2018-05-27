@@ -27,22 +27,22 @@ module.exports = function(app) {
     // Needed??
 
   // POST add favs/currency
-  app.post('/api/user/:userId/bank', function(req,res) {
-    let userId = req.params.userId; 
-    db.Bank.findOrCreate(
+  app.post('/api/user/:userEmail/bank', function(req,res) {
+    let userEmail = req.params.userEmail; 
+    db.Bank.create(
       req.body,
       {
       where: {
-        userId: userId
+        userEmail: userEmail
       }, 
       defaults: {balance: 0}})
-    .spread((user, created) => {
-      console.log(user.get({
-        plain: true
-      }))
-    })
+    // .spread((user, created) => {
+    //   console.log(user.get({
+    //     plain: true
+    //   }))
+    // })
     .then(function(addCoin) {
-      console.log(created)
+      // console.log(created)
       res.json(addCoin); 
     });
     // the "spread" on line 32 divides the array into its 2 parts and passes them as arguments to the callback function defined beginning at line 32, which treats them as "user" and "created" in this case. (So "user" will be the object from index 0 of the returned array and "created" will equal "true". 
@@ -50,14 +50,14 @@ module.exports = function(app) {
 
 
   // PUT to update user currency amounts
-  app.put('/api/user/:userId/bank/:cryptoId', function(req,res) {
-    let userId = req.params.userId; 
+  app.put('/api/user/:userEmail/bank/:cryptoId', function(req,res) {
+    let userEmail = req.params.userEmail; 
     let cryptoId = req.params.cryptoId; 
-    db.Bank.update(
-      req.body,
-      {
+    db.Bank.update({
+      value: req.body,
+    }, {
         where: {
-          userId: userId,
+          userEmail: userEmail,
           cryptoId: cryptoId
         }
       }).then(function(updateCoin) {
