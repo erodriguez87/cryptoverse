@@ -10,7 +10,7 @@ module.exports = function(app) {
     let cryptoId = req.params.id; 
     db.Learn.findOne({
       where: {
-        id: cryptoId
+        cryptoId: cryptoId
       }
     }).then(function(coinInfo) {
       res.json(coinInfo); 

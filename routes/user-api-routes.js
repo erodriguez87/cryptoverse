@@ -8,7 +8,7 @@ module.exports = function(app) {
     let userId = req.params.userId; 
     db.User.findOne({
       where: {
-        userId: userId
+        id: userId
       }, 
       include: [db.Bank] //Need name and table for users' currency balances
     }).then(function(user) {
@@ -50,15 +50,15 @@ module.exports = function(app) {
 
 
   // PUT to update user currency amounts
-  app.put('/api/user/:userId/bank/:coinId', function(req,res) {
+  app.put('/api/user/:userId/bank/:cryptoId', function(req,res) {
     let userId = req.params.userId; 
-    let coinId = req.params.coinId; 
+    let cryptoId = req.params.cryptoId; 
     db.Bank.update(
       req.body,
       {
         where: {
           userId: userId,
-          coinId, coinId
+          cryptoId: cryptoId
         }
       }).then(function(updateCoin) {
         res.json(updateCoin); 
