@@ -16,6 +16,7 @@ module.exports = function(app) {
     res.render('learn')
   }); 
 
+  // Needs JWT
   app.get('/dashboard/:id', function(req, res) {
     let userId = req.params.id; 
     res.render('dashboard')
