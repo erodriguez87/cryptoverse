@@ -8,6 +8,11 @@
 		<script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 		<script src="/assets/js/learnLogic.js"></script>
+		<script src="/assets/js/compareLogic.js"></script>
+		<script src="/assets/js/dashboardLogic.js"></script>
+		<script src="/assets/js/homeLogic.js"></script>
+		<script src="/assets/js/newsApi.js"></script>
+		{{!-- <script src="/assets/js/coinApi.js"></script> --}}
 </head>
 <body>
 	<!-- {{!-- NAV HEADER --}} -->
@@ -17,7 +22,7 @@
           <a href="#" class="brand-logo">CryptoVerse</a>
           <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="#">Log In/ Sign Up</a></li>
+            <li><a class="modal-trigger" href="#signIn">Log In/ Sign Up</a></li>
           </ul>
       </div>
     </div>
@@ -34,6 +39,20 @@
   </nav>
 
 		{{{ body }}}
+
+  
+
+  <!-- Modal Structure -->
+  <div id="signIn" class="modal">
+    <div class="modal-content center">
+      <h4>User Log-In</h4>
+      <p>Don't be a chump! Click the button to sign up!</p>
+    </div>
+    <div class="modal-footer center">
+      <button class="btn modal-trigger" id="logInBtn">Log-In</button>
+      <button  class="btn modal-trigger" id="SignUpBtn">Sign-Up</button>
+    </div>
+  </div>
 
   <!-- {{!-- MATERIALIZE FOOTER --}} -->
   <footer class="page-footer indigo darken-3">
