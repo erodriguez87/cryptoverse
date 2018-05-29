@@ -7,7 +7,7 @@ $(document).ready(function(){
     
 
 
-    
+
     // switch(coin) {  
     //   case "ada":
     //     console.log('Cardano'); 
