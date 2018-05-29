@@ -33,7 +33,11 @@ module.exports = function(app) {
       res.status(401).send('user name, email, or password incorrect');
     }); 
 
-  })
+    // set Token to local storage to allow user to change pages without error
+    localStorage.setItem('token', token);
+    
+
+  });
   
   // GET individual user data
   app.get('/api/user/:userId', ensureToken, function(req, res) {
