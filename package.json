@@ -27,6 +27,7 @@
     "express-jwt": "^5.3.1",
     "jsonwebtoken": "^8.2.1",
     "mysql2": "^1.5.3",
+    "newsapi": "^2.2.2",
     "request": "^2.87.0",
     "sequelize": "^4.37.10"
   }
