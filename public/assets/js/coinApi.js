@@ -1,6 +1,6 @@
 // Include the request npm package (Don't forget to run "npm install request" in this folder first!)
   let request = require("request");
-  let validCoinIds = [];
+  let =[];
 // Request to Coinmarketcap to get all the listings. this will return all active cryptos in one call. We can use body.symbol to get back the coin ID like LTC/BTC. This is only somewhat useful to us. Ticker is the better option.
   function allListings(){
     let listingsUrl = "https://api.coinmarketcap.com/v2/listings/";
@@ -10,7 +10,7 @@
         for (i=0; i < 200; i++){
         // console.log("Name: " + JSON.parse(body).data[i].name)
         // console.log('Symbol: ' + JSON.parse(body).data[i].symbol)
-        validCoinIds.push(JSON.parse(body).data[i].id)
+        // push(JSON.parse(body).data[i].id)
         };
       };
     });
@@ -22,22 +22,34 @@
 
   function tickerCoins(){
     // look at https://coinmarketcap.com/api/ for examples
-    allListings();
+    // allListings();
 
     let tickerUrl = "https://api.coinmarketcap.com/v2/ticker/?limit=100&sort=id";
     request(tickerUrl, function(error, response, body) {
       // If the request is successful
-      
+      ;
+      function canParseJson(str) {
+        try {
+          JSON.parse(body).data[str].name;
+        } catch (e) {
+          console.log('error')
+          return false;
+        }
+          console.log("Name: " + JSON.parse(body).data[str].name);
+          console.log("Symbol: " + JSON.parse(body).data[str].symbol);
+          console.log('Max Supply: ' + JSON.parse(body).data[str].max_supply)
+          console.log("Price: " + JSON.parse(body).data[str].quotes.USD.price)
+          console.log("Change 1h: " + JSON.parse(body).data[str].quotes.USD.percent_change_1h)
+          console.log("Change 24h: " + JSON.parse(body).data[str].quotes.USD.percent_change_24h)
+          console.log("Change 7d: " + JSON.parse(body).data[str].quotes.USD.percent_change_7d)
+        return true;
+    }
+
       if (!error && response.statusCode === 200) {
-        for (i=0; i< 1; i++){
-          console.log("Name: " + JSON.parse(body).data[validCoinIds[i]].name);
-          console.log("Sumbol: " + JSON.parse(body).data[validCoinIds[i]].symbol);
-          console.log('Max Supply: ' + JSON.parse(body).data[validCoinIds[i]].max_supply)
-          console.log("Price: " + JSON.parse(body).data[validCoinIds[i]].quotes.USD.price)
-          console.log("Change 1h: " + JSON.parse(body).data[validCoinIds[i]].quotes.USD.percent_change_1h)
-          console.log("Change 24h: " + JSON.parse(body).data[validCoinIds[i]].quotes.USD.percent_change_24h)
-          console.log("Change 7d: " + JSON.parse(body).data[validCoinIds[i]].quotes.USD.percent_change_7d)
+        for (i=0; i< 100 ; i++){
+          canParseJson(i);     
         };
+ 
       }
     });
     //useful returns to tag on to body ... price, volume_24h, market_cap, percent_change_1h, 24h, 7d
