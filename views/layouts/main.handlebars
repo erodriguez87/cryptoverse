@@ -7,17 +7,24 @@
 		<title>Cryptoverse: To the Moon!</title>
 		<script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
-		<script src="/assets/js/logic.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+		<script src="/assets/js/learnLogic.js"></script>
+		<script src="/assets/js/compareLogic.js"></script>
+		<script src="/assets/js/dashboardLogic.js"></script>
+		<script src="/assets/js/homeLogic.js"></script>
+		<script src="/assets/js/newsApi.js"></script>
+
+		{{!-- <script src="/assets/js/coinApi.js"></script> --}}
 </head>
 <body>
 	<!-- {{!-- NAV HEADER --}} -->
-	<nav class = "nav-extended indigo darken-3">
+	<nav class = "nav-extended">
     <div class = "nav-wrapper">
         <div class = "container">
           <a href="#" class="brand-logo">CryptoVerse</a>
           <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="#">Log In/ Sign Up</a></li>
+            <li><a class="modal-trigger" href="#signIn">Log In/ Sign Up</a></li>
           </ul>
       </div>
     </div>
@@ -35,9 +42,31 @@
 
 		{{{ body }}}
 
+  
+
+  <!-- Modal Structure -->
+  <div id="signIn" class="modal">
+    <div class="modal-content center">
+      <h4>User Log-In</h4>
+      <p>Don't be a chump! Click the button to sign up!</p>
+      <div class="row">
+        <form class="col s10">
+          <input placeholder="Name" id="name" type="text" class="validate">
+          <input placeholder="Email" id="email" type="email" class="validate">
+          <input placeholder="Password" id="password" type="password" class="validate">
+        </form>
+      </div>
+    </div>
+
+    <div class="modal-footer center">
+      <button class="btn" id="logInBtn">Log-In</button>
+      <button  class="btn" id="signUpBtn">Sign-Up</button>
+    </div>
+  </div>
+
   <!-- {{!-- MATERIALIZE FOOTER --}} -->
-  <footer class="page-footer indigo darken-3">
-    <div class="container indigo darken-3">
+  <footer class="page-footer">
+    <div class="container">
       <div class="row">
         <div class="col l6 s12">
           <h5 class="white-text">Footer Content</h5>

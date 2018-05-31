@@ -27,3 +27,5 @@ CREATE TABLE cryptoverse_learn (
 --   password VARCHAR(100) NOT NULL,
 --   PRIMARY KEY (id)
 -- );
+
+Select * From learns; 

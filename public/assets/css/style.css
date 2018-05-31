@@ -1,4 +1,27 @@
-* {
-  /* background-color: white; */
+/* Global  */
+body {
+  background-color: whitesmoke;
 }
 
+.nav-extended {
+  background-color: #494e6b;
+}
+
+.nav-content {
+  background-color: #494e6b;
+}
+
+/* Home */
+
+
+/* Learn */
+
+/* Compare */
+
+/* Dashboard */
+
+/* Footer */
+
+.page-footer{
+  background-color: #192231;
+}

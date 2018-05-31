@@ -25,10 +25,22 @@ module.exports = function(app) {
     }); 
   }); 
 
-  // app.post('api/learn', function (req, res) {
-  //   db
-  // })
+  // app.post("/api/learn", function(req, res) {
+  //   db.Learn.create({
+  //     id: '1', 
+  //     cryptoId: 'btc', 
+  //     name: 'bitcoin', 
+  //     github: 'https://github.com/bitcoin/bitcoin', 
+  //     website: 'https://bitcoin.org/en/', 
+  //     shortDesc: 'the grand daddy', 
+  //     features: 'fast currency', 
+  //     markets: 'currency', 
+  //     disadvantages: 'expensive transactions, slow', 
+  //     started: '2009',
+  //   }).then(function(crypto) {
+  //     console.log(crypto);
+  //   })
+  // }); 
 
-
-
+  
 }; 
