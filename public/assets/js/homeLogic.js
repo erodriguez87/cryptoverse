@@ -14,7 +14,7 @@ $(document).ready(function(){
     console.log(user); 
     if (user.email.includes('@')) {
       let token = Cookies.get('token'); 
-      console.log(token);
+      console.log('token: ' + token);
       $.ajax({
         url: "/api/user/login",
         type: "POST",
@@ -49,7 +49,7 @@ $(document).ready(function(){
     console.log(newUser); 
     if (newUser.email.includes('@')) {
       let token = Cookies.get('token'); 
-      console.log(token);
+      console.log('token: ' + token);
 
       $.ajax({
         url: "/api/user",

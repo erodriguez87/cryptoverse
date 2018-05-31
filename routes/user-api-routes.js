@@ -34,12 +34,12 @@ module.exports = function(app) {
       }
     }).then(function(user) {
       let token = jwt.sign({user}, JWTpassword, {expiresIn: '1hr'}); 
-      // console.log(token); 
+      console.log(token); 
 
       // Create a cookie embedding JWT token
-      res.cookie('jwtAuthToken', jwtAuthToken, { 
-      secure: process.env.NODE_ENV === 'production',
-      signed: true
+      res.cookie("token", token, {
+        secure: process.env.NODE_ENV === 'production',
+        signed: true
     });
       // res.redirect('/dashboard/' + user.id)
     // // redirect user to protected HTML route
@@ -57,9 +57,10 @@ module.exports = function(app) {
   app.post("/api/user", function(req, res) {
     db.User.create(req.body)
       .then(function(newUser) {
-        let token = jwt.sign({ user: newUser }, JWTpassword);
-        // console.log(token);
-        // console.log(newUser);
+        let token = jwt.sign({ newUser }, JWTpassword);
+        // console.log(newUser); 
+        console.log(token);
+
         // Create a cookie embedding JWT token
         res.cookie("token", token, {
           secure: process.env.NODE_ENV === "production",
