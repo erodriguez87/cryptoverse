@@ -13,14 +13,27 @@ $(document).ready(function(){
     }
     console.log(user); 
     if (user.email.includes('@')) {
-      $.post("/api/user", user, function(data, status) {
-        console.log(status); 
-        console.log(data.id); 
-        // localStorage.setItem('token', token)
-        $('#name').val(''); 
-        $('#email').val(''); 
-        $('#password').val(''); 
-        // document.location.href = '/dashboard/' + data.id;
+      let token = Cookies.get('token'); 
+      console.log(token);
+      $.ajax({
+        url: "/api/user/login",
+        type: "POST",
+        data: user,
+        // send Authorization header
+        headers: {
+          "Authorization": "Bearer " + Cookies.get('token')
+        }
+      }).done(function(data) {
+        console.log('protected data', data);
+
+      // $.post("/api/login", user, function(data, status) {
+      //   console.log(status); 
+      //   console.log(data.id); 
+      //   // localStorage.setItem('token', token)
+      //   $('#name').val(''); 
+      //   $('#email').val(''); 
+      //   $('#password').val(''); 
+      //   document.location.href = '/dashboard/' + data.id;
       })
     } else {
       M.toast({html: 'Please enter a valid email address'})
@@ -37,20 +50,24 @@ $(document).ready(function(){
     if (newUser.email.includes('@')) {
       let token = Cookies.get('token'); 
       console.log(token);
+
       $.ajax({
         url: "/api/user",
-        type: 'POST',
+        type: "POST",
+        data: newUser,
         // send Authorization header
         headers: {
           "Authorization": "Bearer " + Cookies.get('token')
         }
-      }).then(function(data) {
+      }).done(function(data) {
         console.log('protected data', data);
-        $('#name').val(''); 
-        $('#email').val(''); 
-        $('#password').val(''); 
-        document.location.href = '/dashboard/' + data.id;
-      });
+      //   $('#name').val(''); 
+      //   $('#email').val(''); 
+      //   $('#password').val(''); 
+      //   document.location.href = '/dashboard/' + data.id;
+      // }).catch(function(err) {
+      //   console.log('error', err);
+
       // $.post("/api/user", newUser, function(data, status) {
       //   console.log(status); 
       //   console.log(data.id); 
@@ -61,6 +78,7 @@ $(document).ready(function(){
       //   // document.location.href = '/dashboard/' + data.id;
       // })
 
+      }); 
     } else {
       M.toast({html: 'Please enter a valid email address'})
     }

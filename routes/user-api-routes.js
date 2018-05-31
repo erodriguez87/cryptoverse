@@ -1,15 +1,17 @@
 const db = require("../models"); // db.User
 const jwt = require('jsonwebtoken'); 
 const cookieParser = require('cookie-parser');
-const jwtExp = require('express-jwt'); 
+// const jwtExp = require('express-jwt'); 
 const JWTpassword = 'JWTpassword';
 
 
 module.exports = function(app) {
   app.use(cookieParser(JWTpassword));
+  // app.use('/api/user', jwtExp({ secret: JWTpassword }));
+
   
   // User Login 
-  app.post('/api/login', function(req, res) {
+  app.post('/api/user/login', function(req, res) {
     // checks for required fields
     if (!req.body.name) {
       res.status(400).send('username required'); 
@@ -32,15 +34,15 @@ module.exports = function(app) {
       }
     }).then(function(user) {
       let token = jwt.sign({user}, JWTpassword, {expiresIn: '1hr'}); 
-      
-      
+      // console.log(token); 
+
       // Create a cookie embedding JWT token
       res.cookie('jwtAuthToken', jwtAuthToken, { 
       secure: process.env.NODE_ENV === 'production',
       signed: true
     });
+      // res.redirect('/dashboard/' + user.id)
     // // redirect user to protected HTML route
-    //   // res.redirect('/dashboard/' + user.id)
     //   // res.status(200).json({token}); 
 
 
@@ -48,6 +50,27 @@ module.exports = function(app) {
       res.status(401).send('user name, email, or password incorrect');
     }); 
 
+  });
+  
+  
+  // POST new user
+  app.post("/api/user", function(req, res) {
+    db.User.create(req.body)
+      .then(function(newUser) {
+        let token = jwt.sign({ user: newUser }, JWTpassword);
+        // console.log(token);
+        // console.log(newUser);
+        // Create a cookie embedding JWT token
+        res.cookie("token", token, {
+          secure: process.env.NODE_ENV === "production",
+          signed: true
+        });
+        // res.json(newUser);
+      })
+      .catch(function(err) {
+        console.log('error', err);
+        res.status(401).send("user name, email, or password incorrect");
+      });
   });
   
   // GET individual user data
@@ -69,32 +92,9 @@ module.exports = function(app) {
     })
   }); 
 
-  // POST new user
-  app.post("/api/user", function(req, res) {
-    db.User.create(req.body).then(function(newUser) {
-    }).then(function(user) {
-      let token = jwt.sign({user}, JWTpassword, {expiresIn: '1hr'});
-      console.log(token); 
-      // Create a cookie embedding JWT token
-      res.cookie('token', token, { 
-        secure: process.env.NODE_ENV === 'production',
-        signed: true
-      });      
-      // res.redirect('/dashboard/' + user.id)
-      res.json(newUser);
-      // // redirect user to protected HTML route
-      // // res.status(200).json({token}); 
-
-
-    }).catch(function(err) {
-      res.status(401).send('user name, email, or password incorrect');
-    }); 
-
-  });
-
   // PUT to update user personal info
-    // Needed??
-
+  // Needed??
+  
   // POST add favs/currency
   app.post('/api/user/:userEmail/bank', ensureToken, function(req, res) {
     jwt.verify(req.token, JWTpassword, function(err, data) {
