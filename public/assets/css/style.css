@@ -1,20 +1,42 @@
 /* Global  */
-body {
-  background-color: whitesmoke;
-}
+  body {
+    background: linear-gradient(#192231, #494e6b,#98878F);
+  }
 
-.nav-extended {
-  background-color: #494e6b;
-}
+  .nav-extended {
+    /* background-color: #192231; */
+    background-color: #494e6b;
+    padding: 10px 0;
+  }
 
-.nav-content {
-  background-color: #494e6b;
-}
+  .nav-content {
+    /* background-color:  #192231; */
+    background-color: #494e6b;
+  }
+
+  #button {
+    background-color: #985E6D;
+  }
 
 /* Home */
+  .about-text {
+    padding: 0 15px;
+  }
+
+  .card-image {
+    padding-top: 25px;
+  }
+
+  #card-3 {
+    width: 80px;
+    height: 80px;
+    margin-top: -5px;
+    margin-left: 2px;
+  }
 
 
 /* Learn */
+HEAD
   /* Added CSS for the Pie Chart */
     #chart {                                                          
       height: 360px;                                                  
@@ -42,12 +64,21 @@ body {
       stroke-width: 2;
     }
   /* End CSS for Pie Chart */
+
+  .info-slider {
+  /* background-color: #192231; */
+  padding-top: 5px;
+  }
+
+  .icon-list {
+    padding: 15px 0;
+  }
+
 /* Compare */
 
 /* Dashboard */
 
 /* Footer */
-
-.page-footer{
-  background-color: #192231;
-}
+  .page-footer{
+    background-color: #192231;
+  }
