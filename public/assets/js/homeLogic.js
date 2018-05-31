@@ -35,15 +35,32 @@ $(document).ready(function(){
     }
     console.log(newUser); 
     if (newUser.email.includes('@')) {
-      $.post("/api/user", newUser, function(data, status) {
-        console.log(status); 
-        console.log(data.id); 
-        // localStorage.setItem('token', token)
+      let token = Cookies.get('token'); 
+      console.log(token);
+      $.ajax({
+        url: "/api/user",
+        type: 'POST',
+        // send Authorization header
+        headers: {
+          "Authorization": "Bearer " + Cookies.get('token')
+        }
+      }).then(function(data) {
+        console.log('protected data', data);
         $('#name').val(''); 
         $('#email').val(''); 
         $('#password').val(''); 
-        // document.location.href = '/dashboard/' + data.id;
-      })
+        document.location.href = '/dashboard/' + data.id;
+      });
+      // $.post("/api/user", newUser, function(data, status) {
+      //   console.log(status); 
+      //   console.log(data.id); 
+      //   // localStorage.setItem('token', token)
+      //   $('#name').val(''); 
+      //   $('#email').val(''); 
+      //   $('#password').val(''); 
+      //   // document.location.href = '/dashboard/' + data.id;
+      // })
+
     } else {
       M.toast({html: 'Please enter a valid email address'})
     }

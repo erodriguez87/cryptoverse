@@ -1,6 +1,7 @@
 const db = require("../models"); // db.User
 const jwt = require('jsonwebtoken'); 
-const cookieParser = require('cookie-parser'); 
+const cookieParser = require('cookie-parser');
+const jwtExp = require('express-jwt'); 
 const JWTpassword = 'JWTpassword';
 
 
@@ -33,11 +34,11 @@ module.exports = function(app) {
       let token = jwt.sign({user}, JWTpassword, {expiresIn: '1hr'}); 
       
       
-    //   // Create a cookie embedding JWT token
-    //   res.cookie('jwtAuthToken', jwtAuthToken, { 
-    //   secure: process.env.NODE_ENV === 'production',
-    //   signed: true
-    // });
+      // Create a cookie embedding JWT token
+      res.cookie('jwtAuthToken', jwtAuthToken, { 
+      secure: process.env.NODE_ENV === 'production',
+      signed: true
+    });
     // // redirect user to protected HTML route
     //   // res.redirect('/dashboard/' + user.id)
     //   // res.status(200).json({token}); 
@@ -51,7 +52,7 @@ module.exports = function(app) {
   
   // GET individual user data
   app.get('/api/user/:userId', ensureToken, function(req, res) {
-    jwt.verify(req.token, JWTpassword, function(err, data) {
+    jwt.verify(req.token, 'JWTpassword', function(err, data) {
       if (err) {
         res.sendStatus(403); 
       } else {
@@ -74,13 +75,14 @@ module.exports = function(app) {
     }).then(function(user) {
       let token = jwt.sign({user}, JWTpassword, {expiresIn: '1hr'});
       console.log(token); 
-      
-      
       // Create a cookie embedding JWT token
-      res.cookie('token', token)
+      res.cookie('token', token, { 
+        secure: process.env.NODE_ENV === 'production',
+        signed: true
+      });      
+      // res.redirect('/dashboard/' + user.id)
       res.json(newUser);
       // // redirect user to protected HTML route
-      // res.redirect('/dashboard/' + user.id)
       // // res.status(200).json({token}); 
 
 
