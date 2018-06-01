@@ -1,6 +1,5 @@
 // Include the request npm package (Don't forget to run "npm install request" in this folder first!)
   let request = require("request");
-  let =[];
 // Request to Coinmarketcap to get all the listings. this will return all active cryptos in one call. We can use body.symbol to get back the coin ID like LTC/BTC. This is only somewhat useful to us. Ticker is the better option.
   function allListings(){
     let listingsUrl = "https://api.coinmarketcap.com/v2/listings/";
