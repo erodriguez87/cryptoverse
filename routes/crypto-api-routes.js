@@ -40,6 +40,7 @@ module.exports = function(app) {
         let tickerArray =[];
         
         function CoinObject(name, symbol, max, price, chg1H, chg24H,chg7d) {
+        
           this.name = name;
           this.symbol = symbol;
           this.max = max;
@@ -57,6 +58,8 @@ module.exports = function(app) {
             return false;
           }
             // fills the array that we pass to the front with objects
+            JSON.parse(body).data[str].symbol = new Coin
+
             tickerArray[str] = new CoinObject(JSON.parse(body).data[str].name,JSON.parse(body).data[str].symbol,JSON.parse(body).data[str].max_supply,JSON.parse(body).data[str].quotes.USD.price,JSON.parse(body).data[str].quotes.USD.percent_change_1h,JSON.parse(body).data[str].quotes.USD.percent_change_24h,JSON.parse(body).data[str].quotes.USD.percent_change_7d)
         }
 
@@ -67,6 +70,7 @@ module.exports = function(app) {
         }
         console.log(tickerArray);
         res.json(tickerArray);
+        //on the front end loop through the array, look up by symbol then return the index
       });
   };
 
