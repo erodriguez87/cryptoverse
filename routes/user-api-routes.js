@@ -74,18 +74,16 @@ module.exports = function(app) {
         console.log(token);
 
         // Create a cookie embedding JWT token
-        // res.cookie("token", token, {
-        //   secure: process.env.NODE_ENV === "production",
-        //   signed: true
-        // });
+        res.cookie("token", token, {
+          secure: process.env.NODE_ENV === "production",
+          signed: true
+        });
         // let redirect = {
         //   url: "/dashboard",
         //   token: token
         // };
         // console.log(redirect.url); 
         res.json(newUser);
-
-        // res.json(newUser);
       })
       .catch(function(err) {
         console.log('error', err);
@@ -111,7 +109,7 @@ module.exports = function(app) {
           include: [db.Bank] //Need name and table for users' currency balances
         }).then(function(user) {
           console.log('token verified'); 
-          console.log(user); 
+          // console.log(user); 
           res.json(user); 
         });
       }

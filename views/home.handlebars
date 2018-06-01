@@ -11,11 +11,17 @@
   </div>
 
   <div class="userDashboard col s10 center">
-    <button data-target="signIn" class="center btn modal-trigger">Access User Dashboard</button>
+    <button data-target="signIn" class="center btn modal-trigger signInBtn">Access User Dashboard</button>
 
-    
+    <div class="userMain"></div>
+
+    <div class="userCoins">
+    </div>
+
   </div>
-    <!-- Modal Structure -->
+
+
+    <!-- Sign-In Modal -->
   <div id="signIn" class="modal">
     <div class="modal-content center">
       <h4>User Log-In</h4>
@@ -29,8 +35,37 @@
       </div>
     </div>
     <div class="modal-footer center">
-      <button class="btn" id="logInBtn">Log-In</button>
-      <button class="btn" id="signUpBtn">Sign-Up</button>
+      <button class="btn modal-close" id="logInBtn">Log-In</button>
+      <button class="btn modal-close" id="signUpBtn">Sign-Up</button>
+    </div>
+  </div>
+
+  <!-- Add Coin Modal -->
+  <div id="addCoin" class="modal">
+    <div class="modal-content center">
+      <h4>Add Crypto to you Favorites</h4>
+      <div class = "Add Crypto">
+        <div class = "row">
+          <div class="input-field col s12">
+            <select>
+              <option value="" disabled selected>Choose a Currency</option>
+              <option value="ada">Cardano (ADA)</option>
+              <option value="bat">Basic Attention Token (BAT)</option>
+              <option value="btc">Bitcoin (BTC)</option>
+              <option value="doge">Dogecoin (DOGE)</option>
+              <option value="eth">Etherium (ETH)</option>
+              <option value="ltc">Litecoin (LTC)</option>
+              <option value="trx">Tron (TRX)</option>
+              <option value="ven">VeChain (VEN)</option>
+              <option value="xlm">Stellar (XLM)</option>
+              <option value="xrp">Ripple (XRP)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer center">
+      <button class="btn center" id="addCoinBtn">Add Crypto</button>
+      </div>
     </div>
   </div>
 

@@ -15,6 +15,8 @@ $(document).ready(function(){
     if (user.email.includes('@')) {
       let token = Cookies.get('token'); 
       console.log('token: ' + token);
+ 
+
       $.ajax({
         url: "/api/user/login",
         type: "POST",
@@ -51,7 +53,6 @@ $(document).ready(function(){
     if (newUser.email.includes('@')) {
       // let token = Cookies.get('token'); 
       // console.log('token: ' + token);
-
       // $.post("/api/user", newUser, function(data, status) {
       //   console.log(status); 
       //   console.log(data.id); 
@@ -67,20 +68,42 @@ $(document).ready(function(){
         // }
       }).then(function(data) {
         // console.log('Sending user to: ', data.url);
-        console.log('user added');
-        console.log("data received:");
-        console.log(data);
+        console.log('user added and data recevied');
+        // console.log(data);
 
         // document.location.href = data.url; 
 
-        // GET user data to display on page
+        // GET user data to display on page =====
         $.ajax({
           url: "/api/user/:" + data.id, 
           type: "GET", 
           data: data, 
-        }).then(function(newData) {
+        }).then(function(resData) {
           console.log('user data retrieved');
-          console.log(newData);
+          // console.log(resData);
+
+          // remove sign-in button
+          $('.signInBtn').addClass('hide'); 
+
+          // add sign out button
+          
+
+          // add box for main display of current holdings and "Welcome ____" message
+          
+
+          // add cards of all user coins (include image, name, amount, and modal button to update)
+
+          // edit modals for user cards
+
+          // add Add Coin button
+          $('.userCoins').html('<button data-target="addCoin" class="center btn modal-trigger">Add New Crypto</button>'); 
+        
+
+
+
+
+
+
         })
         
 
