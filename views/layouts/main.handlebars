@@ -17,34 +17,12 @@
         <li class="tab"><a href="/">Home</a></li>
         <li class="tab"><a href="/learn">Learn</a></li>
         <li class="tab"><a href="/compare">Compare</a></li>
-        <a href="#signIn" class="modal-trigger">Log In/ Sign Up</a>
-        </li>
       </ul>
     </div>
   </nav>
 
   {{{ body }}}
 
-
-  <!-- Modal Structure -->
-  <div id="signIn" class="modal">
-    <div class="modal-content center">
-      <h4>User Log-In</h4>
-      <p>Don't be a chump! Click the button to sign up!</p>
-      <div class="row">
-        <form class="col s10">
-          <input placeholder="Name" id="name" type="text" class="validate">
-          <input placeholder="Email" id="email" type="email" class="validate">
-          <input placeholder="Password" id="password" type="password" class="validate">
-        </form>
-      </div>
-    </div>
-
-    <div class="modal-footer center">
-      <button class="btn" id="logInBtn">Log-In</button>
-      <button class="btn" id="signUpBtn">Sign-Up</button>
-    </div>
-  </div>
 
   <!-- {{!-- MATERIALIZE FOOTER --}} -->
   <footer class="page-footer">
@@ -72,7 +50,7 @@
 <script src="https://code.jquery.com/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-<script src="/assets/js/learnLogic.js"></script>
+{{!-- <script src="/assets/js/learnLogic.js"></script> --}}
 <script src="/assets/js/compareLogic.js"></script>
 <script src="/assets/js/dashboardLogic.js"></script>
 <script src="/assets/js/homeLogic.js"></script>

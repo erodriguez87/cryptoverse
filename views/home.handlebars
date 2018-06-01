@@ -8,7 +8,30 @@
       <a class="waves-effect waves-light btn" id="button">Start Here</a>
       </div>
     </div>
+  </div>
 
+  <div class="userDashboard col s10 center">
+    <button data-target="signIn" class="center btn modal-trigger">Access User Dashboard</button>
+
+    
+  </div>
+    <!-- Modal Structure -->
+  <div id="signIn" class="modal">
+    <div class="modal-content center">
+      <h4>User Log-In</h4>
+      <p>Don't be a chump! Click the button to sign up!</p>
+      <div class="row">
+        <form class="col s10">
+          <input placeholder="Name" id="name" type="text" class="validate">
+          <input placeholder="Email" id="email" type="email" class="validate">
+          <input placeholder="Password" id="password" type="password" class="validate">
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer center">
+      <button class="btn" id="logInBtn">Log-In</button>
+      <button class="btn" id="signUpBtn">Sign-Up</button>
+    </div>
   </div>
 
 {{!-- NEWS CONTAINER --}}

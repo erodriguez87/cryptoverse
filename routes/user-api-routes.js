@@ -69,21 +69,21 @@ module.exports = function(app) {
           name: newUser.name,
           email: newUser.email,
         }
-        let token = jwt.sign({ passwordProtectedUser }, JWTpassword);
+        token = jwt.sign({ passwordProtectedUser }, JWTpassword);
         // console.log(newUser); 
         console.log(token);
 
         // Create a cookie embedding JWT token
-        res.cookie("token", token, {
-          secure: process.env.NODE_ENV === "production",
-          signed: true
-        });
-        let redirect = {
-          url: "/dashboard",
-          token: token
-        };
+        // res.cookie("token", token, {
+        //   secure: process.env.NODE_ENV === "production",
+        //   signed: true
+        // });
+        // let redirect = {
+        //   url: "/dashboard",
+        //   token: token
+        // };
         // console.log(redirect.url); 
-        res.json(redirect);
+        res.json(newUser);
 
         // res.json(newUser);
       })
@@ -94,24 +94,37 @@ module.exports = function(app) {
   });
   
   // GET individual user data
-  app.get('/api/user/:userId', ensureToken, function(req, res) {
-    jwt.verify(req.token, 'JWTpassword', function(err, data) {
+  // ************ removed ensureToken function *******
+  app.get('/api/user/:userId', function(req, res) {
+    console.log('token: ', token); 
+    // console.log(req.query)
+    jwt.verify(token, 'JWTpassword', function(err, data) {
       if (err) {
         res.sendStatus(403); 
       } else {
-        let userId = req.params.userId; 
+        let userId = req.params.userId;
+        console.log(userId);  
         db.User.findOne({
           where: {
-            id: userId
+            id: req.query.id,
           }, 
           include: [db.Bank] //Need name and table for users' currency balances
         }).then(function(user) {
+          console.log('token verified'); 
+          console.log(user); 
           res.json(user); 
         });
       }
     })
   }); 
 
+  // GET ALL users
+  app.get('/api/user/admin', function(req, res) {
+    db.User.findAll().then(function(data) {
+      res.json(data); 
+    })
+  })
+  
   // PUT to update user personal info
   // Needed??
   

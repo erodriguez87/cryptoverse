@@ -46,6 +46,7 @@ $(document).ready(function(){
       email: $('#email').val().trim(), 
       password: $('#password').val().trim()
     }
+    console.log("sending:"); 
     console.log(newUser); 
     if (newUser.email.includes('@')) {
       // let token = Cookies.get('token'); 
@@ -64,28 +65,26 @@ $(document).ready(function(){
         // headers: {
         //   "Authorization": "Bearer " + Cookies.get('token')
         // }
-      }).done(function(data) {
-        console.log('Sending user to: ', data.url);
-        console.log('jwt: ', data.token);
-        document.location.href = data.url; 
+      }).then(function(data) {
+        // console.log('Sending user to: ', data.url);
+        console.log('user added');
+        console.log("data received:");
+        console.log(data);
 
-        // window.location(data)
-        //   $('#name').val(''); 
-      //   $('#email').val(''); 
-      //   $('#password').val(''); 
-      //   document.location.href = '/dashboard/' + data.id;
-      // }).catch(function(err) {
-      //   console.log('error', err);
+        // document.location.href = data.url; 
 
-      // $.post("/api/user", newUser, function(data, status) {
-      //   console.log(status); 
-      //   console.log(data.id); 
-      //   // localStorage.setItem('token', token)
-      //   $('#name').val(''); 
-      //   $('#email').val(''); 
-      //   $('#password').val(''); 
-      //   // document.location.href = '/dashboard/' + data.id;
-      // })
+        // GET user data to display on page
+        $.ajax({
+          url: "/api/user/:" + data.id, 
+          type: "GET", 
+          data: data, 
+        }).then(function(newData) {
+          console.log('user data retrieved');
+          console.log(newData);
+        })
+        
+
+ 
 
       }); 
     } else {
