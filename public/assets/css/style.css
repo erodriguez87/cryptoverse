@@ -35,6 +35,35 @@
 
 
 /* Learn */
+HEAD
+  /* Added CSS for the Pie Chart */
+    #chart {                                                          
+      height: 360px;                                                  
+      position: relative;                                             
+      width: 360px;                                                   
+    }                                                                 
+    .tooltip {                                                        
+      background: #eee;                                               
+      box-shadow: 0 0 5px #999999;                                    
+      color: #333;                                                    
+      display: none;                                                  
+      font-size: 16px;                                                
+      left: 130px;                                                    
+      padding: 10px;                                                  
+      position: absolute;                                             
+      text-align: center;                                             
+      top: 95px;                                                      
+      width: 80px;                                                    
+      z-index: 10;                                                    
+    }                                                                 
+    .legend {
+      font-size: 12px;
+    }
+    rect {
+      stroke-width: 2;
+    }
+  /* End CSS for Pie Chart */
+
   .info-slider {
   /* background-color: #192231; */
   padding-top: 5px;

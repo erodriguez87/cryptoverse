@@ -1,6 +1,9 @@
 const express = require('express'); 
 const db = require('../models/'); 
 // const router = express.Router(); 
+const jwtExp = require('express-jwt');
+const JWTpassword = 'JWTpassword';
+
 
 module.exports = function(app) {
 
@@ -17,15 +20,27 @@ module.exports = function(app) {
   }); 
 
   // Needs JWT
+  // verify authorization via cookie using express-jwt
+  app.use('/dashboard', jwtExp({
+    secret: JWTpassword,
+    getToken: function fromCookie(req) {
+        if (req.signedCookies) {
+            return req.signedCookies.token;
+        }
+        return null;
+    }
+  }));
+
   app.get('/dashboard/:id', ensureToken, function(req, res) {
-    jwt.verify(req.token, 'JWTpassword', function(err, data) {
-      if (err) {
-        res.sendStatus(403); 
-      } else {
+    // jwt.verify(req.token, 'JWTpassword', function(err, data) {
+    //   if (err) {
+    //     res.sendStatus(403); 
+    //   } else {
       let userId = req.params.id; 
-      res.render('dashboard')
-      }; 
-    }); 
+      // req.user contains your payload from jwtAuthToken
+      res.render('dashboard', { user: req.user })
+    //   }; 
+    // }); 
   }); 
 
   function ensureToken(req, res, next) {
