@@ -14,7 +14,7 @@ module.exports = function(app) {
     }).then(response => {
       newsRes = response;
       res.json(newsRes);
-      console.log(newsRes);
+      // console.log(newsRes);
       /*
         {
           status: "ok",

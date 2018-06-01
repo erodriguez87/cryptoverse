@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  localStorage.getItem(token)
+  // localStorage.getItem(token)
   // Sign-in Modal Trigger
   $('.modal').modal();
   $('.modal-trigger').modal();
@@ -48,20 +48,29 @@ $(document).ready(function(){
     }
     console.log(newUser); 
     if (newUser.email.includes('@')) {
-      let token = Cookies.get('token'); 
-      console.log('token: ' + token);
+      // let token = Cookies.get('token'); 
+      // console.log('token: ' + token);
+
+      // $.post("/api/user", newUser, function(data, status) {
+      //   console.log(status); 
+      //   console.log(data.id); 
+      // }); 
 
       $.ajax({
         url: "/api/user",
         type: "POST",
         data: newUser,
         // send Authorization header
-        headers: {
-          "Authorization": "Bearer " + Cookies.get('token')
-        }
+        // headers: {
+        //   "Authorization": "Bearer " + Cookies.get('token')
+        // }
       }).done(function(data) {
-        console.log('protected data', data);
-      //   $('#name').val(''); 
+        console.log('Sending user to: ', data.url);
+        console.log('jwt: ', data.token);
+        document.location.href = data.url; 
+
+        // window.location(data)
+        //   $('#name').val(''); 
       //   $('#email').val(''); 
       //   $('#password').val(''); 
       //   document.location.href = '/dashboard/' + data.id;

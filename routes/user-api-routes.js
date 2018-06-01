@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 // const jwtExp = require('express-jwt'); 
 const JWTpassword = 'JWTpassword';
+let token = ''; 
 
 
 module.exports = function(app) {
@@ -33,7 +34,7 @@ module.exports = function(app) {
         password: req.body.password
       }
     }).then(function(user) {
-      let token = jwt.sign({user}, JWTpassword, {expiresIn: '1hr'}); 
+      token = jwt.sign({user}, JWTpassword, {expiresIn: '1hr'}); 
       console.log(token); 
 
       // Create a cookie embedding JWT token
@@ -52,12 +53,23 @@ module.exports = function(app) {
 
   });
   
-  
+  // redirect ===== TEST WORKING SUCCESSFULLY
+    // app.post('/api/user', function(req, res) {
+    //   console.log("You sent me a user!")
+    //   let redirectUrl = "/dashboard"
+    //   res.json(redirectUrl)
+    // })
+
   // POST new user
   app.post("/api/user", function(req, res) {
     db.User.create(req.body)
       .then(function(newUser) {
-        let token = jwt.sign({ newUser }, JWTpassword);
+        let passwordProtectedUser = {
+          id: newUser.id,
+          name: newUser.name,
+          email: newUser.email,
+        }
+        let token = jwt.sign({ passwordProtectedUser }, JWTpassword);
         // console.log(newUser); 
         console.log(token);
 
@@ -66,6 +78,13 @@ module.exports = function(app) {
           secure: process.env.NODE_ENV === "production",
           signed: true
         });
+        let redirect = {
+          url: "/dashboard",
+          token: token
+        };
+        // console.log(redirect.url); 
+        res.json(redirect);
+
         // res.json(newUser);
       })
       .catch(function(err) {
