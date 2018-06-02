@@ -23,7 +23,6 @@ module.exports = function(app) {
         password: req.body.password
       }
     }).then(function(user) {
-      console.log('promise ======================'); 
       // console.log(user.name); 
       let passwordProtectedUser = {
         id: user.id,
@@ -35,10 +34,10 @@ module.exports = function(app) {
       console.log(token); 
 
       // Create a cookie embedding JWT token
-      res.cookie("token", token, {
-        secure: process.env.NODE_ENV === 'production',
-        signed: true
-      });
+      // res.cookie("token", token, {
+      //   secure: process.env.NODE_ENV === 'production',
+      //   signed: true
+      // });
 
       res.json(user); 
 
@@ -65,10 +64,10 @@ module.exports = function(app) {
         console.log(token);
 
         // Create a cookie embedding JWT token
-        res.cookie("token", token, {
-          secure: process.env.NODE_ENV === "production",
-          signed: true
-        });
+        // res.cookie("token", token, {
+        //   secure: process.env.NODE_ENV === "production",
+        //   signed: true
+        // });
 
         // let redirect = {url: "/dashboard", token: token}; 
         // console.log(redirect.url); 
