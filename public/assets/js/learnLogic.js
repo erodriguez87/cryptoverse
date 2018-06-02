@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+      
   $(".coinBtns").on("click", function(event) {
     let coin = $(this).attr("id"); 
     getData(coin); 
@@ -154,5 +154,37 @@ $(document).ready(function(){
         })(window.d3);   
     });
   }
+  
+  function runSlider (){
+    var slideImageArray = []; 
+    var slide1 = $('<img class="slideImages" id="slide1" src="assets/images/slide1.png">'); 
+    var slide2 = $('<img class="slideImages" id="slide2" src="assets/images/slide2.png">'); 
+    var slide3 = $('<img class="slideImages" id="slide3" src="assets/images/slide3.png">'); 
+    var slide4 = $('<img class="slideImages" id="slide4" src="assets/images/slide4.png">'); 
+    var slide5 = $('<img class="slideImages" id="slide5" src="assets/images/slide5.png">'); 
+    var slide6 = $('<img class="slideImages" id="slide6" src="assets/images/slide6.png">'); 
+    slideImageArray.push(slide1, slide2, slide3, slide4, slide5, slide6); 
+    console.log(slideImageArray[0]); 
+    var slide = 0
+    $('.slider-container').html(slideImageArray[slide]); 
+    
+    $('.slideBtns').on('click', function() {
+      var btn = $(this).attr('id'); 
+      // console.log(btn);
+      if (btn === "arrowBtnL") {
+        slide = slide - 1; 
+        if (slide < 0) {
+          slide = (slideImageArray.length - 1); 
+        }
+      } else if (btn === "arrowBtnR") {
+        slide = slide + 1; 
+        if (slide > (slideImageArray.length - 1)) {
+          slide = 0
+        }
+      }
+      $('.slider-container').html(slideImageArray[slide]); 
+    }); 
+  };
+  
+  runSlider();
 });
-
