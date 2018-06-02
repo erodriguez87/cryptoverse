@@ -2,9 +2,8 @@ $(document).ready(function(){
 
   $(".coinBtns").on("click", function(event) {
     let coin = $(this).attr("id"); 
-    console.log(coin);
     getData(coin); 
-    
+    getCrypto(coin);
 
     // "id": 1,
     // "cryptoId": "btc",
@@ -23,7 +22,7 @@ $(document).ready(function(){
 
   function getData(coin) {
     $.get("/api/learn/" + coin, function(coin) {
-      console.log(coin.name); 
+      // console.log(coin.name); 
       let infoDiv  = $(".coinInfo"); 
     $("#name").html(`${coin.name} (${coin.cryptoId})`); 
     $("#features").html(coin.features); 
@@ -33,113 +32,124 @@ $(document).ready(function(){
     $("#disadvantage").html(coin.disadvantages); 
     $("a#web").attr('href', coin.website); 
     $("a#git").attr('href', coin.github); 
-
-
-
-
     }); 
     // $.ajax({
     //   method: "GET",
     //   url: "/api/learn/" + coin
     // }).then(function(data) {
     // });
+    
   };
 
+  function getCrypto(coin) {
+    $.get("/api/ticker/" + coin, function(coin,res){
+      $("#price").html(`$${coin.price}`); 
+      $("#chg1H").html(`${coin.chg1H}%`); 
+      $("#chg24H").html(`${coin.chg24H}%`); 
+      $("#chg7d").html(`${coin.chg7d}%`); 
+      $("#mktCap").html(`$${coin.mktCap.toLocaleString('en-US', {style:"decimal",minimumFractionDigits: 0})}`); 
 
+      
+        (function(d3) {
+          'use strict';
+        
+          let width = 360;
+          let height = 360;
+          let radius = Math.min(width, height) / 2;
+          let donutWidth = 75;
+          let legendRectSize = 18;
+          let legendSpacing = 4;
+        
+          let color = d3.scaleOrdinal().range(['#2c5788','#f79f3e']);
+        
+          let svg = d3.select('#chart')
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height)
+            .append('g')
+            .attr('transform', 'translate(' + (width / 2) +
+              ',' + (height / 2) + ')');
+        
+          let arc = d3.arc()
+            .innerRadius(radius - donutWidth)
+            .outerRadius(radius);
+        
+          let pie = d3.pie()
+            .value(function(d) { return d.count; })
+            .sort(null);
+        
+          let tooltip = d3.select('#chart')                             
+            .append('div')                                              
+            .attr('class', 'tooltip');                                
+          tooltip.append('div')                                         
+            .attr('class', 'label');                                    
+          tooltip.append('div')                                         
+            .attr('class', 'count');                                   
+          tooltip.append('div')                                         
+            .attr('class', 'percent');
+            
+          let marketPie = parseFloat(coin.mktCap.replace(/,/g, ''));
+          let marketTotal = 333171578388
+
+          console.log('type of ' + typeof(marketPie) + typeof(marketTotal));
+          console.log('market cap ' + marketPie)
+
+          console.log('market total ' + parseInt(marketTotal))
+          let marketShare = marketPie/parseInt(marketTotal);
+          console.log('logging chart data' + marketShare)
+
+          let dataset = [
+            { label: `${coin.symbol}`, count:`${marketShare}`},
+            { label: 'All Others', count: `${1-marketShare}`}
+            ];
+        
+            let path = svg.selectAll('path')
+              .data(pie(dataset))
+              .enter()
+              .append('path')
+              .attr('d', arc)
+              .attr('fill', function(d, i) {
+                return color(d.data.label);
+              });
+        
+            path.on('mouseover', function(d) {                      
+              let total = d3.sum(dataset.map(function(d) {          
+                return d.count;                                    
+              }));                                                     
+              tooltip.select('.label').html(d.data.label);         
+              tooltip.select('.count').html(d.data.count + '%');    
+              tooltip.style('display', 'block');                   
+            });  
+        
+            path.on('mouseout', function() {                          
+              tooltip.style('display', 'none');                        
+            });                                                                                          
+            let legend = svg.selectAll('.legend')
+              .data(color.domain())
+              .enter()
+              .append('g')
+              .attr('class', 'legend')
+              .attr('transform', function(d, i) {
+                let height = legendRectSize + legendSpacing;
+                let offset =  height * color.domain().length / 2;
+                let horz = -2 * legendRectSize;
+                let vert = i * height - offset;
+                return 'translate(' + horz + ',' + vert + ')';
+              });
+        
+            legend.append('rect')
+              .attr('width', legendRectSize)
+              .attr('height', legendRectSize)
+              .style('fill', color)
+              .style('stroke', color);
+        
+            legend.append('text')
+              .attr('x', legendRectSize + legendSpacing)
+              .attr('y', legendRectSize - legendSpacing)
+              .text(function(d) { return d; });
+        
+        })(window.d3);   
+    });
+  }
 });
 
-// pie chart using d3
-    (function(d3) {
-      'use strict';
-
-      let width = 360;
-      let height = 360;
-      let radius = Math.min(width, height) / 2;
-      let donutWidth = 75;
-      let legendRectSize = 18;
-      let legendSpacing = 4;
-
-      let color = d3.scaleOrdinal().range(['#2c5788','#f79f3e']);
-
-      let svg = d3.select('#chart')
-        .append('svg')
-        .attr('width', width)
-        .attr('height', height)
-        .append('g')
-        .attr('transform', 'translate(' + (width / 2) +
-          ',' + (height / 2) + ')');
-
-      let arc = d3.arc()
-        .innerRadius(radius - donutWidth)
-        .outerRadius(radius);
-
-      let pie = d3.pie()
-        .value(function(d) { return d.count; })
-        .sort(null);
-
-      let tooltip = d3.select('#chart')                               
-        .append('div')                                                
-        .attr('class', 'tooltip');                                    
-
-      tooltip.append('div')                                           
-        .attr('class', 'label');                                      
-
-      tooltip.append('div')                                           
-        .attr('class', 'count');                                      
-
-      tooltip.append('div')                                           
-        .attr('class', 'percent');                                    
-
-      let dataset = [
-        { label: 'BTC', count:34},
-        { label: 'All Others', count: 76}
-        ];
-
-        let path = svg.selectAll('path')
-          .data(pie(dataset))
-          .enter()
-          .append('path')
-          .attr('d', arc)
-          .attr('fill', function(d, i) {
-            return color(d.data.label);
-          });
-
-        path.on('mouseover', function(d) {                            
-          let total = d3.sum(dataset.map(function(d) {                
-            return d.count;                                           
-          }));                                                        
-          tooltip.select('.label').html(d.data.label);                
-          tooltip.select('.count').html(d.data.count + '%');                     
-          tooltip.style('display', 'block');                          
-        });                                                           
-
-        path.on('mouseout', function() {                              
-          tooltip.style('display', 'none');                           
-        });                                                           
-                                          
-        let legend = svg.selectAll('.legend')
-          .data(color.domain())
-          .enter()
-          .append('g')
-          .attr('class', 'legend')
-          .attr('transform', function(d, i) {
-            let height = legendRectSize + legendSpacing;
-            let offset =  height * color.domain().length / 2;
-            let horz = -2 * legendRectSize;
-            let vert = i * height - offset;
-            return 'translate(' + horz + ',' + vert + ')';
-          });
-
-        legend.append('rect')
-          .attr('width', legendRectSize)
-          .attr('height', legendRectSize)
-          .style('fill', color)
-          .style('stroke', color);
-
-        legend.append('text')
-          .attr('x', legendRectSize + legendSpacing)
-          .attr('y', legendRectSize - legendSpacing)
-          .text(function(d) { return d; });
-
-
-    })(window.d3);
