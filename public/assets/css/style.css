@@ -5,8 +5,10 @@ font-family: 'Roboto', sans-serif;
 
 /* Global  */
   body {
-    background: linear-gradient(#192231, #494e6b,#98878F);
+    background: linear-gradient(#192231, #003A67,#98878f);
+    /* #003A67 removed this color for now */
     font-family: 'Poppins', sans-serif;
+    color: whitesmoke;
   }
 
   nav {
@@ -14,12 +16,12 @@ font-family: 'Roboto', sans-serif;
     /* margin: 10px 0; */
   }
   .nav-wrapper {
-    background-color: #494e6b;
+    background-color: #192231;
     /* padding: 10px 0;  */
   }
 
   #button {
-    background-color: #985E6D;
+    background-color: #c5305f;
   }
 
   h2 {
@@ -33,11 +35,15 @@ font-family: 'Roboto', sans-serif;
   }
 
   .signInBtn {
-    background-color: #985E6D; 
+    background-color: #c5305f; 
   }
 
   .card-image {
     padding-top: 25px;
+  }
+
+  .card-content {
+    color: black;
   }
 
 /* Learn */
@@ -105,5 +111,5 @@ font-family: 'Roboto', sans-serif;
 
 /* Footer */
   .page-footer{
-    background-color: #192231;
+    background-color: transparent;
   }

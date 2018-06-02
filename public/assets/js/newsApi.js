@@ -10,3 +10,12 @@ $.ajax({url: currentURL + "/api/news", method: "GET"})
 };
 
 getNews();
+
+
+var newsData = {
+  Title: title,
+  URL: url
+}
+
+var newsTitle = $('<td class="newsTitle">').text(title);
+var newsURL = $('<td class="newsURL">').text(url)
