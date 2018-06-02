@@ -137,9 +137,61 @@ $(document).ready(function(){
       // console.log(resData);
       console.log(resData.Banks);
       let coinCards = resData.Banks; 
+      $('.coinCardContainer').empty(); 
       coinCards.forEach((coin) => {
         console.log(`${coin.cryptoId}: ${coin.value}`); 
-
+        let tempDiv = $(`<div class="col s12 m6 l4" id="${coin.cryptoId}">`); 
+        let mainCard = $('<div class="card horizontal">'); 
+        // get coin image
+        let coinImage = ''
+        switch(coin.cryptoId) {
+          case 'ADA':
+            coinImage = './assets/images/ada.Cardano.png';
+            break;
+          case 'BAT':
+            coinImage = './assets/images/bat.BasicAttentionToken.png';
+            break;
+          case 'BTC':
+            coinImage = './assets/images/btc.Bitcoin.png';
+            break;
+          case 'DOGE':
+            coinImage = './assets/images/doge.Dogecoin.png';
+            break;
+          case 'ETH':
+            coinImage = './assets/images/eth.Ethereum.png';
+            break;
+          case 'LTC':
+            coinImage = './assets/images/ltc.Litecoin.png';
+            break;
+          case 'TRX':
+            coinImage = './assets/images/trx.TronCoin.png';
+            break;
+          case 'VEN':
+            coinImage = './assets/images/ven.VeChain.png';
+            break;
+          case 'XLM':
+            coinImage = './assets/images/xlm.stellar.png';
+            break;
+          case 'XRP':
+            coinImage = './assets/images/xrp.Ripple.png';
+            break;
+          default:
+            coinImage = '#';
+        }; 
+      
+        let imgDiv = $('<div class="card-image" style="padding-top: 30px">'); 
+        imgDiv.append(`<img src="${coinImage}">`);
+        let cardDiv = $('<div class="card-stacked">'); 
+        let cardContent = $('<div class="card-content" style="padding-top: 10px">'); 
+        let cardInfo = 
+        `<h5><b>${coin.cryptoId}</b></h5>\n
+        <h6>User Amounts: ${coin.value}</h6>\n
+        <h6>Market Value: 100,000</h6>`
+        cardContent.append(cardInfo); 
+        cardDiv.append(cardContent); 
+        mainCard.append(imgDiv, cardDiv); 
+        tempDiv.append(mainCard); 
+        $('.coinCardContainer').append(tempDiv); 
       }); 
     });
   }; 

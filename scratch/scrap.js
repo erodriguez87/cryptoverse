@@ -9,55 +9,7 @@
 // console.log(listSymbols);
 
 
-  // app.get("/api/ticker", function(req, res) {
-    // Request to Coinmarketcap to get the top 100 cryptos. This call includes price, price, volume, percent change in the last 1h, 24h, 7d... Api call is limited to 100 returns. This gives back the first 100
-
-  //   function tickerCoins(){
-  //     let tickerUrl = "https://api.coinmarketcap.com/v2/ticker/?limit=100&sort=id";
-  //     console.log('inside ticker url')
-
-  //     request(tickerUrl, function(error, response, body) {
-  //       // If the request is successful
-  //       let tickerArray =[];
-        
-  //       function CoinObject(name, symbol, max, price, chg1H, chg24H,chg7d) {
-        
-  //         this.name = name;
-  //         this.symbol = symbol;
-  //         this.max = max;
-  //         this.price = price;
-  //         this.chg1H = chg1H;
-  //         this.chg24H = chg24H;
-  //         this.chg7d = chg7d;
-  //       };
-
-  //       function canParseJson(str) {
-  //         try {
-  //           JSON.parse(body).data[str].name;
-  //         } catch (e) {
-  //           console.log('error')
-  //           return false;
-  //         }
-  //           // fills the array that we pass to the front with objects
-        
-  //           tickerArray[str] = new CoinObject(JSON.parse(body).data[str].name,JSON.parse(body).data[str].symbol,JSON.parse(body).data[str].max_supply,JSON.parse(body).data[str].quotes.USD.price,JSON.parse(body).data[str].quotes.USD.percent_change_1h,JSON.parse(body).data[str].quotes.USD.percent_change_24h,JSON.parse(body).data[str].quotes.USD.percent_change_7d)
-  //       }
-
-  //       if (!error && response.statusCode === 200) {
-  //         for (i=0; i< 150 ; i++){
-  //           canParseJson(i);     
-  //         };
-  //       }
-  //       console.log(tickerArray);
-  //       res.json(tickerArray);
-  //       //on the front end loop through the array, look up by symbol then return the index
-  //     });
-  // };
-
-  // tickerCoins();
   
-  // });
-
 
   // app.post("/api/clear", function() {
   //   // Empty out the arrays of data

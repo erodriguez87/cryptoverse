@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 // const jwtExp = require('express-jwt'); 
 const JWTpassword = 'JWTpassword';
+// const JWTpassword = process.env.JWTpassword; 
+
 let token = ''; 
 
 
