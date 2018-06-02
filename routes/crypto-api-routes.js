@@ -9,6 +9,7 @@ const request = require("request");
       let specificCoinUrl = "";
       let coinObject ={}; // empty object that api will fill and send back to front end
       
+      
       let coinIndex = listSymbols.symbol.indexOf(cryptoUpper) // need to pass the id of the coin we want to search for into this variable. this is the number and not 3 letter code
 
       let chosenCoin = listSymbols.id[coinIndex];
@@ -42,11 +43,11 @@ const request = require("request");
   
       function tickerCoins(){
         let tickerUrl = "https://api.coinmarketcap.com/v2/ticker/?limit=100&sort=id";
-        console.log('inside ticker url')
   
         request(tickerUrl, function(error, response, body) {
           // If the request is successful
           let tickerArray =[];
+          let tickerArray2 = [];
           
           function CoinObject(name, symbol, max, price, chg1H, chg24H,chg7d) {
           
@@ -59,38 +60,50 @@ const request = require("request");
             this.chg7d = chg7d;
           };
   
+          // try catch to parse through bad API data
           function canParseJson(str) {
             try {
               JSON.parse(body).data[str].name;
             } catch (e) {
-              console.log('error')
               return false;
             }
-              // fills the array that we pass to the front with objects
-          
-              tickerArray[str] =new CoinObject(JSON.parse(body).data[str].name,JSON.parse(body).data[str].symbol,JSON.parse(body).data[str].max_supply,JSON.parse(body).data[str].quotes.USD.price,JSON.parse(body).data[str].quotes.USD.percent_change_1h,JSON.parse(body).data[str].quotes.USD.percent_change_24h,JSON.parse(body).data[str].quotes.USD.percent_change_7d)
+              // fills the array with a response from the API
+              tickerArray[str] = new CoinObject(JSON.parse(body).data[str].name,JSON.parse(body).data[str].symbol,JSON.parse(body).data[str].max_supply,JSON.parse(body).data[str].quotes.USD.price,JSON.parse(body).data[str].quotes.USD.percent_change_1h,JSON.parse(body).data[str].quotes.USD.percent_change_24h,JSON.parse(body).data[str].quotes.USD.percent_change_7d)
           }
   
+          // try catch for loop that looks through the api response and parses through the ids. need to do this because the api skips numbers.
           if (!error && response.statusCode === 200) {
             for (i=0; i< 150 ; i++){
               canParseJson(i);     
             };
+
+            let coin1 = (req.params.id).toUpperCase();
+            let coin2 = (req.params.id2).toUpperCase();
+            search(coin1,coin2,tickerArray,tickerArray2);
+            search2(coin1,coin2,tickerArray,tickerArray2);
           }
 
-          function search(nameKey, tickerArray){
-            for (var i=0; i < tickerArray.length; i++) {
-                if (tickerArray[i].symbol === nameKey) {
-                    return tickerArray[i];
-                    console.log(tickerArray[i]);
-                }
-            }
-          }
-
-          search('BTC',tickerArray);
-
-          // console.log(tickerArray);
-          res.json(tickerArray);
-          //on the front end loop through the array, look up by symbol then return the index
+          // search through the API return for the two coins we are going to compare
+          function search(nameKey,nameKey2,tickerArray,tickerArray2){  
+            for (var i=1; i < tickerArray.length; i++) {
+                if ((tickerArray[i].symbol === nameKey)) {
+                  tickerArray2.push(tickerArray[i]);
+                  console.log(tickerArray2);
+                  return tickerArray2;
+                }; 
+            };
+          };
+          function search2(nameKey,nameKey2,tickerArray,tickerArray2){  
+            for (var i=1; i < tickerArray.length; i++) {
+                if (tickerArray[i].symbol ===nameKey2) {
+                  tickerArray2.push(tickerArray[i]);
+                  console.log(tickerArray2);
+                  return tickerArray2;
+              }; 
+            };
+          };
+          // res.json(tickerArray);
+          res.json(tickerArray2);
         });
     };
   
