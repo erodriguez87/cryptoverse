@@ -1,7 +1,11 @@
 {
   "development": {
     "username": "root",
+<<<<<<< HEAD
     "password": "SQLPassword!",
+=======
+    "password": "root",
+>>>>>>> f6f4caeabeffa35da097269ee7eae41c3897b928
     "database": "cryptoverse_db",
     "host": "127.0.0.1",
     "port": 3306,

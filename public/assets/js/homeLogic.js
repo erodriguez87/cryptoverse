@@ -3,6 +3,8 @@ $(document).ready(function(){
   // Sign-in Modal Trigger
   $('.modal').modal();
   $('.modal-trigger').modal();
+  let userData = {}; 
+  let userCoinData = {}; 
 
   // Grab logInBtn & SignUpBtn and make /login calls
   $("#logInBtn").on("click", function(event) {
@@ -33,7 +35,7 @@ $(document).ready(function(){
       email: $('#email').val().trim(), 
       password: $('#password').val().trim()
     }
-    console.log(newUser); 
+    // console.log(newUser); 
     if (newUser.email.includes('@')) {
       $.ajax({
         url: "/api/user",
@@ -57,34 +59,152 @@ $(document).ready(function(){
       data: data, 
     }).then(function(resData) {
       console.log('user data retrieved');
-      console.log(resData);
+      userData = {
+        id: resData.id, 
+        name: resData.name, 
+        email: resData.email, 
+      }
+      console.log(userData);
     
+      // remove sign-in button
+      $('.signInBtn').addClass('hide'); 
 
-    // remove sign-in button
-    $('.signInBtn').addClass('hide'); 
+      // add sign out button
+      
+      // add api call for current market values of all crypto
 
-    // add sign out button
-    
-    // add api call for current market values of all crypto
+      // add logic for calculating user coins and market values
+      let cryptoBal = 0; 
 
-    // add logic for calculating user coins and market values
-    let cryptoBal = 0; 
+      // add box for main display of current holdings and "Welcome ____" message
+      $('.userMain').empty(); 
+      let welcome = `<h2>Welcome ${resData.name}!</h2>`;
+      let currentBal = `<h4>Current Crypto-Balance: ${cryptoBal}</h4>`;
+      $('.userMain').append(welcome, currentBal); 
 
-    // add box for main display of current holdings and "Welcome ____" message
-    $('.userMain').empty(); 
-    let welcome = `<h2>Welcome ${resData.name}!</h2>`;
-    let currentBal = `<h4>Current Crypto-Balance: ${cryptoBal}</h4>`;
-    $('.userMain').append(welcome, currentBal); 
+      // add cards of all user coins (include image, name, amount, and modal button to update)
 
-    // add cards of all user coins (include image, name, amount, and modal button to update)
+      // edit modals for user cards
 
-    // edit modals for user cards
+      // add Add Coin button
+      $('.userCoins').html('<button data-target="addFav" class="addFav center btn modal-trigger">Add New Crypto</button>'); 
+      $("#addCoinBtn").on("click", function(event) {
+        userCoinData = {
+          // name: userData.name,
+          UserId: userData.id,
+          userEmail: userData.email, 
+          cryptoId: $('#coinOptions').val(),
+        }
+        
+         
+        
+        // let addCoinData = {
+        //   UserId: resData.id,
+        //   userEmail: resData.email,
+        //   cryptoId: $('#coinOptions').val()
+        // } 
+        console.log(userCoinData); 
+        addFavs(userCoinData); 
 
-    // add Add Coin button
-    $('.userCoins').append('<button data-target="addCoin" class="center btn modal-trigger">Add New Crypto</button>'); 
-  
+      }); 
+
+    }); 
+  }; // END loadUserData
+
+
+
+
+  function addFavs(userCoinData) {
     // add logic for adding new coins
+    $.ajax({
+      url: `/api/user/:${userCoinData.userEmail}/bank`, 
+      type: "POST", 
+      data: userCoinData, 
+    }).then(function(resData) {
+      console.log('user data retrieved');
+      console.log(resData); 
+      loadCoinCards(userData); 
+    });
+  }
 
+  function loadCoinCards(userData) {
+    $.ajax({
+      url: "/api/user/:" + userData.id, 
+      type: "GET", 
+      data: userData, 
+    }).then(function(resData) {
+      console.log('Coin Cards to be loaded: ');
+      // console.log(resData);
+      console.log(resData.Banks);
+      let coinCards = resData.Banks; 
+      $('.coinCardContainer').empty(); 
+      coinCards.forEach((coin) => {
+        console.log(`${coin.cryptoId}: ${coin.value}`); 
+        let tempDiv = $(`<div class="col s12 m6 l4" id="${coin.cryptoId}">`); 
+        let mainCard = $('<div class="card horizontal">'); 
+        // get coin image
+        let coinImage = ''
+        switch(coin.cryptoId) {
+          case 'ADA':
+            coinImage = './assets/images/ada.Cardano.png';
+            break;
+          case 'BAT':
+            coinImage = './assets/images/bat.BasicAttentionToken.png';
+            break;
+          case 'BTC':
+            coinImage = './assets/images/btc.Bitcoin.png';
+            break;
+          case 'DOGE':
+            coinImage = './assets/images/doge.Dogecoin.png';
+            break;
+          case 'ETH':
+            coinImage = './assets/images/eth.Ethereum.png';
+            break;
+          case 'LTC':
+            coinImage = './assets/images/ltc.Litecoin.png';
+            break;
+          case 'TRX':
+            coinImage = './assets/images/trx.TronCoin.png';
+            break;
+          case 'VEN':
+            coinImage = './assets/images/ven.VeChain.png';
+            break;
+          case 'XLM':
+            coinImage = './assets/images/xlm.stellar.png';
+            break;
+          case 'XRP':
+            coinImage = './assets/images/xrp.Ripple.png';
+            break;
+          default:
+            coinImage = '#';
+        }; 
+      
+        let imgDiv = $('<div class="card-image" style="padding-top: 30px">'); 
+        imgDiv.append(`<img src="${coinImage}">`);
+        let cardDiv = $('<div class="card-stacked">'); 
+        let cardContent = $('<div class="card-content" style="padding-top: 10px">'); 
+        let cardInfo = 
+        `<h5><b>${coin.cryptoId}</b></h5>\n
+        <h6>User Amounts: ${coin.value}</h6>\n
+        <h6>Market Value: 100,000</h6>`
+        cardContent.append(cardInfo); 
+        cardDiv.append(cardContent); 
+        mainCard.append(imgDiv, cardDiv); 
+        tempDiv.append(mainCard); 
+        $('.coinCardContainer').append(tempDiv); 
+      }); 
+    });
+  }; 
+
+  function addAmounts() {
+    // add logic for adding new coins
+    $.ajax({
+      url: "/api/user/:" + data.id, 
+      type: "PUT", 
+      data: data, 
+    }).then(function(addCoin) {
+      console.log('user data retrieved');
+      console.log(addCoin); 
 
     });
   }

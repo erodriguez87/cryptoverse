@@ -32,7 +32,7 @@
       // A coin can't be added without a user existing through the foreign key
       Bank.belongsTo(models.User, {
         foreignKey: {
-          allowNull: true
+          allowNull: false
         }
       });
     };

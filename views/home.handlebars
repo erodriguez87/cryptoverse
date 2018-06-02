@@ -1,17 +1,30 @@
 {{!-- ABOUT CV --}}
   <div class = "about-section">
     <div class="col s12">
-      {{!-- <img src = "./assets/images/banner_home.png"></a> --}}
       <div class = "about-text">    
       <h2>Welcome to the Cryptoverse</h2> 
-      <p>A place for noobs to learn about cryptocurrency,  the basics of investing, and the latest news in the world of Crypto! This is just a whole bunch of filler text. Meow. </p>
-      <a class="waves-effect waves-light btn" id="button">Start Here</a>
+        <div class = "row">
+          <div class = "col s12 m12 l8"
+            <p>Where new investors can learn the basics of Crypto, compare currencies, and  get the latest news! Create an account to keep track of your balance and monitor how your favorite currencies are doing in the market. </p>
+          </div>
+            <div class = "col s12 m12 l4 center-align">
+              <button data-target="signIn" class="center btn modal-trigger signInBtn">Access User Dashboard</button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{!-- CHART/ HOME IMAGE --}}
+  <div class = "animated-chart center-align">
+    <div class = "row">
+      <div class="col l10 s12">
+        <img src = "#">HOME IMAGE/ USER DASH BOX</a>
       </div>
     </div>
   </div>
 
   <div class="userDashboard col s10 center">
-    <button data-target="signIn" class="center btn modal-trigger signInBtn">Access User Dashboard</button>
 
     <div class="userMain">
     </div>
@@ -42,33 +55,57 @@
   </div>
 
   <!-- Add Coin Modal -->
-  <div id="addCoin" class="modal">
+  <div id="addFav" class="modal">
     <div class="modal-content center">
       <h4>Add Crypto to you Favorites</h4>
       <div class = "Add Crypto">
         <div class = "row">
           <div class="input-field col s12">
-            <select>
+            <select id="coinOptions">
               <option value="" disabled selected>Choose a Currency</option>
-              <option value="ada">Cardano (ADA)</option>
-              <option value="bat">Basic Attention Token (BAT)</option>
-              <option value="btc">Bitcoin (BTC)</option>
-              <option value="doge">Dogecoin (DOGE)</option>
-              <option value="eth">Etherium (ETH)</option>
-              <option value="ltc">Litecoin (LTC)</option>
-              <option value="trx">Tron (TRX)</option>
-              <option value="ven">VeChain (VEN)</option>
-              <option value="xlm">Stellar (XLM)</option>
-              <option value="xrp">Ripple (XRP)</option>
+              <option value="ADA">Cardano (ADA)</option>
+              <option value="BAT">Basic Attention Token (BAT)</option>
+              <option value="BTC">Bitcoin (BTC)</option>
+              <option value="DOGE">Dogecoin (DOGE)</option>
+              <option value="ETH">Etherium (ETH)</option>
+              <option value="LTC">Litecoin (LTC)</option>
+              <option value="TRX">Tron (TRX)</option>
+              <option value="VEN">VeChain (VEN)</option>
+              <option value="XLM">Stellar (XLM)</option>
+              <option value="XRP">Ripple (XRP)</option>
             </select>
           </div>
         </div>
       </div>
       <div class="modal-footer center">
-      <button class="btn center" id="addCoinBtn">Add Crypto</button>
+      <button class="btn center modal-close" id="addCoinBtn">Add Crypto</button>
       </div>
     </div>
   </div>
+
+<!-- {{!-- COIN/ USER WIDGETS --}} -->
+  <div class = "crypto-widgets">
+    <div class = "container">
+      <div class="row coinCardContainer">
+        {{!-- <!-- ada -->
+        <div class="col s12 m6 l4" id="ada">
+          <div class="card horizontal">
+            <div class="card-image" style="padding-top: 50px">
+              <img src="assets/images/ada.Cardano.png">
+            </div>
+            <div class="card-stacked">
+              <div class="card-content" style="padding-top: 10px">
+                <h5><b>ADA</b></h5>
+                <h6>User Amounts: <span id="adaAmounts">10</span></h6>
+                <h6>Market Value: <span id="adaAmounts">100,000</span></h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END ada --> --}}
+      </div>
+    </div>
+</div>
 
 {{!-- NEWS CONTAINER --}}
   <div class = "news-section">
@@ -76,79 +113,9 @@
       <div class="col l6 s12">
         <h2>News</h2>
         <div class = "news-api-body">
-          News Data Here
+        
         </div>
       </div>
     </div>
   </div>
 
-{{!-- CHART --}}
-  <div class = "animated-chart">
-    <div class = "row">
-      <div class="col l6 s12">
-        <img src = "#">Animated Chart</a>
-      </div>
-    </div>
-  </div>
-
-<!-- {{!-- WIDGETS --}} -->
-  <div class = "crypto-widgets">
-    <div class = "container">
-      <div class="row">
-        <!-- CARD ONE -->
-        <div class="col s13 m4">
-            <h4 class="header">ETH</h4>
-            <div class="card horizontal">
-              <div class="card-image" id="card-1">
-                <img src="assets/images/eth.Ethereum.png">
-              </div>
-              <div class="card-stacked">
-                <div class="card-content">
-                  <p>I am a very simple card. I am good at containing small bits of information.</p>
-                </div>
-                <div class="card-action">
-                  <a href="#">This is a link</a>
-                </div>
-              </div>
-            </div>
-        </div>
-        <!-- END CARD ONE -->
-        <!-- CARD TWO -->
-        <div class="col s12 m4">
-            <h4 class="header">BTC</h4>
-            <div class="card horizontal">
-              <div class="card-image" id="card-2">
-                <img src="assets/images/btc.Bitcoin.png">
-              </div>
-              <div class="card-stacked">
-                <div class="card-content">
-                  <p>I am a very simple card. I am good at containing small bits of information.</p>
-                </div>
-                <div class="card-action">
-                  <a href="#">This is a link</a>
-                </div>
-              </div>
-            </div>
-        </div>
-        <!-- END CARD TWO -->
-        <!-- CARD THREE -->
-        <div class="col s12 m4">
-            <h4 class="header">DOGE</h4>
-            <div class="card horizontal">
-              <div class="card-image" id="card-3">
-                <img src="assets/images/doge.Dogecoin.png">
-              </div>
-              <div class="card-stacked">
-                <div class="card-content">
-                  <p>I am a very simple card. I am good at containing small bits of information.</p>
-                </div>
-                <div class="card-action">
-                  <a href="#">This is a link</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        <!-- END CARD THREE -->
-      </div>
-    </div>
-  </div>
