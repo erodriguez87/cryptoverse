@@ -2,23 +2,16 @@ $(document).ready(function(){
   $('select').formSelect();
   $(".compareBtn").on("click", function(event) {
     let coin = $(this).attr("id"); 
-    // getData(coin); 
-    // getCrypto(coin);
+    getCompare(coin);
 
   });
 
-  function getData(coin) {
-    $.get("/api/compare/" + coin, function(coin) {
-      // console.log(coin.name); 
-      let infoDiv  = $(".coinInfo"); 
-    $("#name1").html(`${coin.name} (${coin.cryptoId})`); 
+  function getCompare(coin) {
+    $.get("/api/compare/" + coin + '/' + coin2, function(coin) {
+      // $("#name1").html(`${coin.name} (${coin.cryptoId})`); 
+      console.log(coin);
     }); 
-    // $.ajax({
-    //   method: "GET",
-    //   url: "/api/learn/" + coin
-    // }).then(function(data) {
-    // });
-    
+   
   };
 
 });
