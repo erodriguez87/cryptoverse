@@ -83,7 +83,7 @@ module.exports = function(app) {
   app.get('/api/user/:userId', function(req, res) {
     console.log('token: ', token); 
     // console.log(req.query)
-    jwt.verify(token, 'JWTpassword', function(err, data) {
+    jwt.verify(token, JWTpassword, function(err, data) {
       if (err) {
         res.sendStatus(403); 
       } else {
@@ -105,18 +105,29 @@ module.exports = function(app) {
 
   // GET ALL users
   app.get('/api/users', function(req, res) {
-    db.User.findAll().then(function(data) {
+    db.User.findAll({
+      include: [ db.Bank] 
+    }).then(function(data) {
       res.json(data); 
-
     })
   })
   
+  app.get('/api/banks', function(req, res) {
+    db.Bank.findAll().then(function(data) {
+      res.json(data); 
+    })
+  })
+
   // PUT to update user personal info
   // Needed??
   
-  // POST add favs/currency
-  app.post('/api/user/:userEmail/bank', ensureToken, function(req, res) {
-    jwt.verify(req.token, JWTpassword, function(err, data) {
+  // POST add new favorites
+  app.post('/api/user/:userEmail/bank', function(req, res) {
+    console.log(req); 
+    console.log("+++++++++++++++++++++++++++"); 
+    console.log(req.body)
+
+    jwt.verify(token, JWTpassword, function(err, data) {
       if (err) {
         res.sendStatus(403); 
       } else {
