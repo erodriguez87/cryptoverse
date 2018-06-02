@@ -55,22 +55,42 @@ HEAD
       top: 95px;                                                      
       width: 80px;                                                    
       z-index: 10;                                                    
-    }                                                                 
+    }   
+
     .legend {
       font-size: 12px;
     }
+
     rect {
       stroke-width: 2;
     }
+
   /* End CSS for Pie Chart */
 
   .info-slider {
-  /* background-color: #192231; */
-  padding-top: 5px;
+  padding-top: 10px;
+  }
+
+  #arrowBtnL {
+    position: absolute; 
+    bottom: 50%; 
+    left: 8%; 
+    z-index: 1; 
+    background-color: white;
+    color: black;
+  }
+
+  #arrowBtnR {
+    position: absolute; 
+    bottom: 50%; 
+    z-index: 1; 
+    right: 8%; 
+    background-color: white;
+    color: black;
   }
 
   .icon-list {
-    padding: 15px 0;
+    padding: 20px 0;
   }
 
 /* Compare */

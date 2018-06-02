@@ -154,10 +154,9 @@ $(document).ready(function(){
         })(window.d3);   
     });
   }
-});
-
-function runSlider (){
-  var slideImageArray = []; 
+  
+  function runSlider (){
+    var slideImageArray = []; 
     var slide1 = $('<img class="slideImages" id="slide1" src="assets/images/slide1.png">'); 
     var slide2 = $('<img class="slideImages" id="slide2" src="assets/images/slide2.png">'); 
     var slide3 = $('<img class="slideImages" id="slide3" src="assets/images/slide3.png">'); 
@@ -168,23 +167,24 @@ function runSlider (){
     console.log(slideImageArray[0]); 
     var slide = 0
     $('.slider-container').html(slideImageArray[slide]); 
-
-  $('.slideBtns').on('click', function() {
-    var btn = $(this).attr('id'); 
-    // console.log(btn);
-    if (btn === "arrowBtnL") {
-      slide = slide - 1; 
-      if (slide < 0) {
-        slide = (slideImageArray.length - 1); 
+    
+    $('.slideBtns').on('click', function() {
+      var btn = $(this).attr('id'); 
+      // console.log(btn);
+      if (btn === "arrowBtnL") {
+        slide = slide - 1; 
+        if (slide < 0) {
+          slide = (slideImageArray.length - 1); 
+        }
+      } else if (btn === "arrowBtnR") {
+        slide = slide + 1; 
+        if (slide > (slideImageArray.length - 1)) {
+          slide = 0
+        }
       }
-    } else if (btn === "arrowBtnR") {
-      slide = slide + 1; 
-      if (slide > (slideImageArray.length - 1)) {
-        slide = 0
-      }
-    }
-    $('.slider-container').html(slideImageArray[slide]); 
-  }); 
-};
-
-runSlider();
+      $('.slider-container').html(slideImageArray[slide]); 
+    }); 
+  };
+  
+  runSlider();
+});
