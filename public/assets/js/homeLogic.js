@@ -13,34 +13,19 @@ $(document).ready(function(){
     }
     console.log(user); 
     if (user.email.includes('@')) {
-      let token = Cookies.get('token'); 
-      console.log('token: ' + token);
- 
-
       $.ajax({
         url: "/api/user/login",
         type: "POST",
         data: user,
-        // send Authorization header
-        headers: {
-          "Authorization": "Bearer " + Cookies.get('token')
-        }
-      }).done(function(data) {
-        console.log('protected data', data);
-
-      // $.post("/api/login", user, function(data, status) {
-      //   console.log(status); 
-      //   console.log(data.id); 
-      //   // localStorage.setItem('token', token)
-      //   $('#name').val(''); 
-      //   $('#email').val(''); 
-      //   $('#password').val(''); 
-      //   document.location.href = '/dashboard/' + data.id;
-      })
+      }).then(function(data) {
+        console.log('user added and data recevied');
+        // console.log(data);
+        loadUserData(data);       
+      }); 
     } else {
       M.toast({html: 'Please enter a valid email address'})
     }
-  })
+  });
 
   $("#signUpBtn").on("click", function(event) {
     let newUser = {
@@ -48,71 +33,61 @@ $(document).ready(function(){
       email: $('#email').val().trim(), 
       password: $('#password').val().trim()
     }
-    console.log("sending:"); 
     console.log(newUser); 
     if (newUser.email.includes('@')) {
-      // let token = Cookies.get('token'); 
-      // console.log('token: ' + token);
-      // $.post("/api/user", newUser, function(data, status) {
-      //   console.log(status); 
-      //   console.log(data.id); 
-      // }); 
-
       $.ajax({
         url: "/api/user",
         type: "POST",
         data: newUser,
-        // send Authorization header
-        // headers: {
-        //   "Authorization": "Bearer " + Cookies.get('token')
-        // }
       }).then(function(data) {
-        // console.log('Sending user to: ', data.url);
         console.log('user added and data recevied');
         // console.log(data);
-
-        // document.location.href = data.url; 
-
-        // GET user data to display on page =====
-        $.ajax({
-          url: "/api/user/:" + data.id, 
-          type: "GET", 
-          data: data, 
-        }).then(function(resData) {
-          console.log('user data retrieved');
-          // console.log(resData);
-
-          // remove sign-in button
-          $('.signInBtn').addClass('hide'); 
-
-          // add sign out button
-          
-
-          // add box for main display of current holdings and "Welcome ____" message
-          
-
-          // add cards of all user coins (include image, name, amount, and modal button to update)
-
-          // edit modals for user cards
-
-          // add Add Coin button
-          $('.userCoins').html('<button data-target="addCoin" class="center btn modal-trigger">Add New Crypto</button>'); 
-        
-
-
-
-
-
-
-        })
-        
-
- 
-
+        loadUserData(data);       
       }); 
     } else {
       M.toast({html: 'Please enter a valid email address'})
     }
-    })
+  });
+
+  function loadUserData(data) {
+    // GET user data to display on page =====
+    $.ajax({
+      url: "/api/user/:" + data.id, 
+      type: "GET", 
+      data: data, 
+    }).then(function(resData) {
+      console.log('user data retrieved');
+      console.log(resData);
+    
+
+    // remove sign-in button
+    $('.signInBtn').addClass('hide'); 
+
+    // add sign out button
+    
+    // add api call for current market values of all crypto
+
+    // add logic for calculating user coins and market values
+    let cryptoBal = 0; 
+
+    // add box for main display of current holdings and "Welcome ____" message
+    $('.userMain').empty(); 
+    let welcome = `<h2>Welcome ${resData.name}!</h2>`;
+    let currentBal = `<h4>Current Crypto-Balance: ${cryptoBal}</h4>`;
+    $('.userMain').append(welcome, currentBal); 
+
+    // add cards of all user coins (include image, name, amount, and modal button to update)
+
+    // edit modals for user cards
+
+    // add Add Coin button
+    $('.userCoins').append('<button data-target="addCoin" class="center btn modal-trigger">Add New Crypto</button>'); 
+  
+    // add logic for adding new coins
+
+
+    });
+  }
+
 
 });

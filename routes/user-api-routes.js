@@ -13,20 +13,7 @@ module.exports = function(app) {
   
   // User Login 
   app.post('/api/user/login', function(req, res) {
-    // checks for required fields
-    if (!req.body.name) {
-      res.status(400).send('username required'); 
-      return; 
-    }
-    if (!req.body.email) {
-      res.status(400).send('email required'); 
-      return; 
-    }
-    if (!req.body.password) {
-      res.status(400).send('password required'); 
-      return; 
-    }
-
+    // console.log(req); 
     db.User.findOne({
       where: {
         name: req.body.name, 
@@ -34,32 +21,35 @@ module.exports = function(app) {
         password: req.body.password
       }
     }).then(function(user) {
-      token = jwt.sign({user}, JWTpassword, {expiresIn: '1hr'}); 
+      console.log('promise ======================'); 
+      // console.log(user.name); 
+      let passwordProtectedUser = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      }
+      console.log(passwordProtectedUser); 
+      token = jwt.sign({passwordProtectedUser}, JWTpassword, {expiresIn: '1hr'}); 
       console.log(token); 
 
       // Create a cookie embedding JWT token
       res.cookie("token", token, {
         secure: process.env.NODE_ENV === 'production',
         signed: true
-    });
-      // res.redirect('/dashboard/' + user.id)
-    // // redirect user to protected HTML route
-    //   // res.status(200).json({token}); 
+      });
 
+      res.json(user); 
+
+    // res.redirect('/dashboard/' + user.id)
+    // redirect user to protected HTML route
+    // res.status(200).json({token}); 
 
     }).catch(function(err) {
+      console.log('error', err);
       res.status(401).send('user name, email, or password incorrect');
     }); 
-
   });
   
-  // redirect ===== TEST WORKING SUCCESSFULLY
-    // app.post('/api/user', function(req, res) {
-    //   console.log("You sent me a user!")
-    //   let redirectUrl = "/dashboard"
-    //   res.json(redirectUrl)
-    // })
-
   // POST new user
   app.post("/api/user", function(req, res) {
     db.User.create(req.body)
@@ -70,7 +60,6 @@ module.exports = function(app) {
           email: newUser.email,
         }
         token = jwt.sign({ passwordProtectedUser }, JWTpassword);
-        // console.log(newUser); 
         console.log(token);
 
         // Create a cookie embedding JWT token
@@ -78,10 +67,8 @@ module.exports = function(app) {
           secure: process.env.NODE_ENV === "production",
           signed: true
         });
-        // let redirect = {
-        //   url: "/dashboard",
-        //   token: token
-        // };
+
+        // let redirect = {url: "/dashboard", token: token}; 
         // console.log(redirect.url); 
         res.json(newUser);
       })
@@ -117,9 +104,10 @@ module.exports = function(app) {
   }); 
 
   // GET ALL users
-  app.get('/api/user/admin', function(req, res) {
+  app.get('/api/users', function(req, res) {
     db.User.findAll().then(function(data) {
       res.json(data); 
+
     })
   })
   
