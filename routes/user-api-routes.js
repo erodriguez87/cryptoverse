@@ -123,9 +123,9 @@ module.exports = function(app) {
   
   // POST add new favorites
   app.post('/api/user/:userEmail/bank', function(req, res) {
-    console.log(req); 
-    console.log("+++++++++++++++++++++++++++"); 
-    console.log(req.body)
+    // console.log(req); 
+    // console.log("+++++++++++++++++++++++++++"); 
+    // console.log(req.body)
 
     jwt.verify(token, JWTpassword, function(err, data) {
       if (err) {

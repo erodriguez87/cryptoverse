@@ -34,7 +34,7 @@ $(document).ready(function(){
       email: $('#email').val().trim(), 
       password: $('#password').val().trim()
     }
-    console.log(newUser); 
+    // console.log(newUser); 
     if (newUser.email.includes('@')) {
       $.ajax({
         url: "/api/user",
@@ -58,7 +58,11 @@ $(document).ready(function(){
       data: data, 
     }).then(function(resData) {
       console.log('user data retrieved');
-      userData = resData; 
+      userData = {
+        id: resData.id, 
+        name: resData.name, 
+        email: resData.email, 
+      }
       console.log(userData);
     
       // remove sign-in button
@@ -84,13 +88,18 @@ $(document).ready(function(){
       // add Add Coin button
       $('.userCoins').html('<button data-target="addFav" class="addFav center btn modal-trigger">Add New Crypto</button>'); 
       $("#addCoinBtn").on("click", function(event) {
-        let addCoinData = {
-          UserId: resData.id,
-          userEmail: resData.email,
-          cryptoId: $('#coinOptions').val()
-        } 
-        console.log(addCoinData); 
-        addFavs(addCoinData); 
+        userData.UserId = userData.id; 
+        userData.userEmail = userData.email; 
+        userData.cryptoId = $('#coinOptions').val(); 
+        
+        // let addCoinData = {
+        //   UserId: resData.id,
+        //   userEmail: resData.email,
+        //   cryptoId: $('#coinOptions').val()
+        // } 
+        console.log(userData); 
+        addFavs(userData); 
+
       }); 
 
     }); 
@@ -99,17 +108,32 @@ $(document).ready(function(){
 
 
 
-  function addFavs(addCoinData) {
+  function addFavs(userData) {
     // add logic for adding new coins
     $.ajax({
-      url: `/api/user/:${addCoinData.userEmail}/bank`, 
+      url: `/api/user/:${userData.userEmail}/bank`, 
       type: "POST", 
-      data: addCoinData, 
+      data: userData, 
     }).then(function(resData) {
       console.log('user data retrieved');
       console.log(resData); 
     });
   }
+
+  function loadCoinCards(userData) {
+    $.ajax({
+      url: "/api/user/:" + userData.id, 
+      type: "GET", 
+      data: userData, 
+    }).then(function(resData) {
+      console.log('Coin Cards to be loaded: ');
+      console.log(resData.Banks);
+      let coinCards = resData.Banks; 
+      coinCards.forEach((coin) => {
+        ...
+      }); 
+    }); 
+  }; 
 
   function addAmounts() {
     // add logic for adding new coins
