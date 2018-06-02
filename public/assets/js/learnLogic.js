@@ -52,6 +52,9 @@ $(document).ready(function(){
       
         (function(d3) {
           'use strict';
+
+          $('#chart').empty();
+          d3.selectAll(" svg > *").remove();
         
           let width = 360;
           let height = 360;
