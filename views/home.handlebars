@@ -55,13 +55,13 @@
   </div>
 
   <!-- Add Coin Modal -->
-  <div id="addCoin" class="modal">
+  <div id="addFav" class="modal">
     <div class="modal-content center">
       <h4>Add Crypto to you Favorites</h4>
       <div class = "Add Crypto">
         <div class = "row">
           <div class="input-field col s12">
-            <select>
+            <select id="coinOptions">
               <option value="" disabled selected>Choose a Currency</option>
               <option value="ada">Cardano (ADA)</option>
               <option value="bat">Basic Attention Token (BAT)</option>
@@ -78,7 +78,7 @@
         </div>
       </div>
       <div class="modal-footer center">
-      <button class="btn center" id="addCoinBtn">Add Crypto</button>
+      <button class="btn center modal-close" id="addCoinBtn">Add Crypto</button>
       </div>
     </div>
   </div>
