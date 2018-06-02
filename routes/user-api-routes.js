@@ -98,6 +98,8 @@ module.exports = function(app) {
           console.log('token verified'); 
           // console.log(user); 
           res.json(user); 
+        }).catch(function(err) {
+          console.log(err); 
         });
       }
     })
@@ -141,7 +143,10 @@ module.exports = function(app) {
           defaults: {balance: 0}})
         .then(function(addCoin) {
           res.json(addCoin); 
-        });
+        }).catch(function(err) {
+          console.log(err); 
+        })
+
       };
     }); 
   }); 

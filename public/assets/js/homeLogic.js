@@ -4,6 +4,7 @@ $(document).ready(function(){
   $('.modal').modal();
   $('.modal-trigger').modal();
   let userData = {}; 
+  let userCoinData = {}; 
 
   // Grab logInBtn & SignUpBtn and make /login calls
   $("#logInBtn").on("click", function(event) {
@@ -88,17 +89,22 @@ $(document).ready(function(){
       // add Add Coin button
       $('.userCoins').html('<button data-target="addFav" class="addFav center btn modal-trigger">Add New Crypto</button>'); 
       $("#addCoinBtn").on("click", function(event) {
-        userData.UserId = userData.id; 
-        userData.userEmail = userData.email; 
-        userData.cryptoId = $('#coinOptions').val(); 
+        userCoinData = {
+          // name: userData.name,
+          UserId: userData.id,
+          userEmail: userData.email, 
+          cryptoId: $('#coinOptions').val(),
+        }
+        
+         
         
         // let addCoinData = {
         //   UserId: resData.id,
         //   userEmail: resData.email,
         //   cryptoId: $('#coinOptions').val()
         // } 
-        console.log(userData); 
-        addFavs(userData); 
+        console.log(userCoinData); 
+        addFavs(userCoinData); 
 
       }); 
 
@@ -108,15 +114,16 @@ $(document).ready(function(){
 
 
 
-  function addFavs(userData) {
+  function addFavs(userCoinData) {
     // add logic for adding new coins
     $.ajax({
-      url: `/api/user/:${userData.userEmail}/bank`, 
+      url: `/api/user/:${userCoinData.userEmail}/bank`, 
       type: "POST", 
-      data: userData, 
+      data: userCoinData, 
     }).then(function(resData) {
       console.log('user data retrieved');
       console.log(resData); 
+      loadCoinCards(userData); 
     });
   }
 
@@ -127,12 +134,14 @@ $(document).ready(function(){
       data: userData, 
     }).then(function(resData) {
       console.log('Coin Cards to be loaded: ');
+      // console.log(resData);
       console.log(resData.Banks);
       let coinCards = resData.Banks; 
       coinCards.forEach((coin) => {
-        ...
+        console.log(`${coin.cryptoId}: ${coin.value}`); 
+
       }); 
-    }); 
+    });
   }; 
 
   function addAmounts() {
