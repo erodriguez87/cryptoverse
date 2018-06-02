@@ -1,12 +1,19 @@
-// request(listingsUrl, function(error, response, body) {
-//   if (!error && response.statusCode === 200) {
-//     for (i=0; i < 150; i++){
-//     listSymbols.symbol.push(JSON.parse(body).data[i].symbol)
-//     listSymbols.id.push(JSON.parse(body).data[i].id)
-//     };
-//   };
+const request = require("request");
+listSymbols = {
+  id:[],
+  symbol:[]
+}
+request("https://api.coinmarketcap.com/v2/listings/", function(error, response, body) {
+  if (!error && response.statusCode === 200) {
+    for (i=600; i < 700; i++){
+    listSymbols.symbol.push(JSON.parse(body).data[i].symbol)
+    listSymbols.id.push(JSON.parse(body).data[i].id)
+    };
+  };
+  console.log(listSymbols);
+});
 // res.json(listSymbols)
-// console.log(listSymbols);
+
 
 
   
