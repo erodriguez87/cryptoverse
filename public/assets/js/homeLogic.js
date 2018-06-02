@@ -145,34 +145,34 @@ $(document).ready(function(){
         // get coin image
         let coinImage = ''
         switch(coin.cryptoId) {
-          case 'ada':
+          case 'ADA':
             coinImage = './assets/images/ada.Cardano.png';
             break;
-          case 'bat':
+          case 'BAT':
             coinImage = './assets/images/bat.BasicAttentionToken.png';
             break;
-          case 'btc':
+          case 'BTC':
             coinImage = './assets/images/btc.Bitcoin.png';
             break;
-          case 'doge':
+          case 'DOGE':
             coinImage = './assets/images/doge.Dogecoin.png';
             break;
-          case 'eth':
+          case 'ETH':
             coinImage = './assets/images/eth.Ethereum.png';
             break;
-          case 'ltc':
+          case 'LTC':
             coinImage = './assets/images/ltc.Litecoin.png';
             break;
-          case 'trx':
+          case 'TRX':
             coinImage = './assets/images/trx.TronCoin.png';
             break;
-          case 'ven':
+          case 'VEN':
             coinImage = './assets/images/ven.VeChain.png';
             break;
-          case 'xlm':
+          case 'XLM':
             coinImage = './assets/images/xlm.stellar.png';
             break;
-          case 'xrp':
+          case 'XRP':
             coinImage = './assets/images/xrp.Ripple.png';
             break;
           default:
