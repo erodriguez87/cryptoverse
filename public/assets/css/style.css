@@ -16,26 +16,22 @@
     background-color: #985E6D;
   }
 
+
 /* Home */
   .about-text {
     padding: 0 15px;
+  }
+
+  .signInBtn {
+    background-color: #985E6D; 
   }
 
   .card-image {
     padding-top: 25px;
   }
 
-
-  #card-3 {
-    width: 80px;
-    height: 80px;
-    margin-top: -5px;
-    margin-left: 2px;
-  }
-
-
 /* Learn */
-HEAD
+  HEAD
   /* Added CSS for the Pie Chart */
     #chart {                                                          
       height: 360px;                                                  
