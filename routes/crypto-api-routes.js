@@ -9,8 +9,9 @@ const request = require("request");
       let specificCoinUrl = "";
       let coinObject ={}; // empty object that api will fill and send back to front end
       
-      
       let coinIndex = listSymbols.symbol.indexOf(cryptoUpper) // need to pass the id of the coin we want to search for into this variable. this is the number and not 3 letter code
+      console.log(cryptoUpper);
+      console.log(coinIndex);
 
       let chosenCoin = listSymbols.id[coinIndex];
       specificCoinUrl = `https://api.coinmarketcap.com/v2/ticker/${chosenCoin}/`;

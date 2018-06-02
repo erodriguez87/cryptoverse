@@ -59,6 +59,7 @@ $(document).ready(function(){
       data: data, 
     }).then(function(resData) {
       console.log('user data retrieved');
+      console.log(resData); 
       userData = {
         id: resData.id, 
         name: resData.name, 
@@ -68,13 +69,16 @@ $(document).ready(function(){
     
       // remove sign-in button
       $('.signInBtn').addClass('hide'); 
+      $('.animated-chart').addClass('hide'); 
 
       // add sign out button
       
       // add api call for current market values of all crypto
 
+      // create welcome screen with market balance
+      
       // add logic for calculating user coins and market values
-      let cryptoBal = 0; 
+      getCryptoBal(resData); 
 
       // add box for main display of current holdings and "Welcome ____" message
       $('.userMain').empty(); 
@@ -111,7 +115,15 @@ $(document).ready(function(){
     }); 
   }; // END loadUserData
 
-
+  function getCryptoBal(resData) {
+    $.ajax({
+      url: '/api/ticker/' + resData.cryptoId, 
+      type: 'GET'
+    }).then(function(resCoinData) {
+      console.log(resCoinData); 
+      let usdBal = resCoinData.price * coin.value; 
+    });
+  }; 
 
 
   function addFavs(userCoinData) {
@@ -129,7 +141,7 @@ $(document).ready(function(){
 
   function loadCoinCards(userData) {
     $.ajax({
-      url: "/api/user/:" + userData.id, 
+      url: "/api/user/" + userData.id, 
       type: "GET", 
       data: userData, 
     }).then(function(resData) {
@@ -138,60 +150,70 @@ $(document).ready(function(){
       console.log(resData.Banks);
       let coinCards = resData.Banks; 
       $('.coinCardContainer').empty(); 
+
       coinCards.forEach((coin) => {
-        console.log(`${coin.cryptoId}: ${coin.value}`); 
-        let tempDiv = $(`<div class="col s12 m6 l4" id="${coin.cryptoId}">`); 
-        let mainCard = $('<div class="card horizontal">'); 
-        // get coin image
-        let coinImage = ''
-        switch(coin.cryptoId) {
-          case 'ADA':
-            coinImage = './assets/images/ada.Cardano.png';
-            break;
-          case 'BAT':
-            coinImage = './assets/images/bat.BasicAttentionToken.png';
-            break;
-          case 'BTC':
-            coinImage = './assets/images/btc.Bitcoin.png';
-            break;
-          case 'DOGE':
-            coinImage = './assets/images/doge.Dogecoin.png';
-            break;
-          case 'ETH':
-            coinImage = './assets/images/eth.Ethereum.png';
-            break;
-          case 'LTC':
-            coinImage = './assets/images/ltc.Litecoin.png';
-            break;
-          case 'TRX':
-            coinImage = './assets/images/trx.TronCoin.png';
-            break;
-          case 'VEN':
-            coinImage = './assets/images/ven.VeChain.png';
-            break;
-          case 'XLM':
-            coinImage = './assets/images/xlm.stellar.png';
-            break;
-          case 'XRP':
-            coinImage = './assets/images/xrp.Ripple.png';
-            break;
-          default:
-            coinImage = '#';
-        }; 
-      
-        let imgDiv = $('<div class="card-image" style="padding-top: 30px">'); 
-        imgDiv.append(`<img src="${coinImage}">`);
-        let cardDiv = $('<div class="card-stacked">'); 
-        let cardContent = $('<div class="card-content" style="padding-top: 10px">'); 
-        let cardInfo = 
-        `<h5><b>${coin.cryptoId}</b></h5>\n
-        <h6>User Amounts: ${coin.value}</h6>\n
-        <h6>Market Value: 100,000</h6>`
-        cardContent.append(cardInfo); 
-        cardDiv.append(cardContent); 
-        mainCard.append(imgDiv, cardDiv); 
-        tempDiv.append(mainCard); 
-        $('.coinCardContainer').append(tempDiv); 
+        $.ajax({
+          url: '/api/ticker/' + coin.cryptoId, 
+          type: 'GET'
+        }).then(function(resCoinData) {
+          console.log(resCoinData); 
+          let usdBal = resCoinData.price * coin.value; 
+        
+          console.log(`${coin.cryptoId}: ${coin.value}`); 
+          let tempDiv = $(`<div class="col s12 m6 l4" id="${coin.cryptoId}">`); 
+          let mainCard = $('<div class="card horizontal hoverable">'); 
+          // get coin image
+          let coinImage = ''
+          switch(coin.cryptoId) {
+            case 'ADA':
+              coinImage = './assets/images/ada.Cardano.png';
+              break;
+            case 'BAT':
+              coinImage = './assets/images/bat.BasicAttentionToken.png';
+              break;
+            case 'BTC':
+              coinImage = './assets/images/btc.Bitcoin.png';
+              break;
+            case 'DOGE':
+              coinImage = './assets/images/doge.Dogecoin.png';
+              break;
+            case 'ETH':
+              coinImage = './assets/images/eth.Ethereum.png';
+              break;
+            case 'LTC':
+              coinImage = './assets/images/ltc.Litecoin.png';
+              break;
+            case 'TRX':
+              coinImage = './assets/images/trx.TronCoin.png';
+              break;
+            case 'VEN':
+              coinImage = './assets/images/ven.VeChain.png';
+              break;
+            case 'XLM':
+              coinImage = './assets/images/xlm.stellar.png';
+              break;
+            case 'XRP':
+              coinImage = './assets/images/xrp.Ripple.png';
+              break;
+            default:
+              coinImage = '#';
+          }; 
+        
+          let imgDiv = $('<div class="card-image" style="padding-top: 30px">'); 
+          imgDiv.append(`<img src="${coinImage}" style="max-width:80px; padding:5px">`);
+          let cardDiv = $('<div class="card-stacked">'); 
+          let cardContent = $('<div class="card-content" style="padding-top: 10px">'); 
+          let cardInfo = 
+          `<h5><b>${coin.cryptoId}</b></h5>\n
+          <h6>USD Balance: ${usdBal}</h6>\n
+          <h6>Coin Balance: ${coin.value}</h6>\n
+          <h6>Coin Price: ${resCoinData.price}</h6>`
+          cardContent.append(cardInfo); 
+          cardDiv.append(cardContent); 
+          mainCard.append(imgDiv, cardDiv); 
+          tempDiv.append(mainCard); 
+          $('.coinCardContainer').append(tempDiv); 
+        });
       }); 
     });
   }; 
@@ -199,7 +221,7 @@ $(document).ready(function(){
   function addAmounts() {
     // add logic for adding new coins
     $.ajax({
-      url: "/api/user/:" + data.id, 
+      url: "/api/user/" + data.id, 
       type: "PUT", 
       data: data, 
     }).then(function(addCoin) {
