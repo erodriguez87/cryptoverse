@@ -1,6 +1,12 @@
+/* 
+font-family: 'Poppins', sans-serif;
+font-family: 'Roboto', sans-serif;
+*/
+
 /* Global  */
   body {
     background: linear-gradient(#192231, #494e6b,#98878F);
+    font-family: 'Poppins', sans-serif;
   }
 
   nav {
@@ -16,10 +22,14 @@
     background-color: #985E6D;
   }
 
+  h2 {
+    font-family: 'Roboto', sans-serif;
+  }
 
 /* Home */
   .about-text {
     padding: 0 15px;
+    font-size: 18px;
   }
 
   .signInBtn {
