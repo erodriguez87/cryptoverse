@@ -46,8 +46,20 @@ font-family: 'Roboto', sans-serif;
     color: black;
   }
 
-  #signIn {
+  #signIn, #addFav, #editCoin {
     color: black;
+  }
+
+  #addFav {
+    height: 100%; 
+  }
+
+  #editCoin {
+    height: 40%; 
+  }
+
+  .activator {
+    cursor: pointer;
   }
 
 /* Learn */
