@@ -14,14 +14,14 @@ $(document).ready(function(){
       email: $('#email').val().trim(), 
       password: $('#password').val().trim()
     }
-    console.log(user); 
+    // console.log(user); 
     if (user.email.includes('@')) {
       $.ajax({
         url: "/api/user/login",
         type: "POST",
         data: user,
       }).then(function(data) {
-        console.log('user added and data recevied');
+        // console.log('user added and data recevied');
         // console.log(data);
         loadUserData(data);       
       }); 
@@ -43,7 +43,7 @@ $(document).ready(function(){
         type: "POST",
         data: newUser,
       }).then(function(data) {
-        console.log('user added and data recevied');
+        // console.log('user added and data recevied');
         // console.log(data);
         loadUserData(data);       
       }); 
@@ -59,8 +59,8 @@ $(document).ready(function(){
       type: "GET", 
       data: data, 
     }).then(function(resData) {
-      console.log('user data retrieved');
-      console.log(resData); 
+      // console.log('user data retrieved');
+      // console.log(resData); 
       // save user data to global var
       userData = {
         id: resData.id, 
@@ -68,7 +68,7 @@ $(document).ready(function(){
         email: resData.email, 
         Banks: resData.Banks
       }
-      console.log(userData);
+      // console.log(userData);
     
       // remove sign-in button
       $('.signInBtn').addClass('hide'); 
@@ -77,11 +77,8 @@ $(document).ready(function(){
       // add sign out button
       
       // create welcome screen with market balance
-      userDashboard(userData); 
-           
-      // edit modals for user cards
-
-      
+      userDashboard(resData); 
+             
       // add cards of all user coins (include image, name, amount, and modal button to update)
       // add Add Coin button
       $('.userCoins').html('<button data-target="addFav" class="addFav center btn modal-trigger">Add New Crypto</button>'); 
@@ -93,52 +90,77 @@ $(document).ready(function(){
           userEmail: userData.email, 
           cryptoId: $('#coinOptions').val(),
         }
-        console.log(userCoinData); 
+        // console.log(userCoinData); 
         addFavs(userCoinData); 
       }); 
 
     }); 
   }; // END loadUserData
 
-  function userDashboard(userData) {
-    loadCoinCards(userData);
-    let userBank = userData.Banks; 
-    console.log('in userDashboard'); 
-    console.warn(userData); 
-    console.warn(userBank); 
-    if (userBank.length === 0) {
-      cryptoBal = 0; 
-      console.log('No Crypto Balance'); 
-      $('.userMain').empty(); 
-      let welcome = `<h2>Hold on for dear life ${userData.name}! #HODL</h2>`;
-      let currentBal = `<h4>Current Crypto-Balance: ${cryptoBal}</h4>`;
-      $('.userMain').append(welcome, currentBal); 
-    } else {
-      userBank.forEach((coin) => {
-        // call external api to get value of each coin value
-        $.ajax({
-          url: '/api/ticker/' + coin.cryptoId, 
-          type: 'GET'
-        }).then(function(resCoinData) {
-          // add logic for calculating user coins and market values
-          let balance = []; 
-          balance.push(coin.value * resCoinData.price); 
-          console.log(balance); 
-          cryptoBal = 0; 
-          balance.forEach((value) => {
-            cryptoBal += value;  
-          }); 
-          console.log(cryptoBal); 
+  function userDashboard(data) {
+    loadCoinCards(data);
+    $.ajax({
+      url: "/api/user/:" + data.id, 
+      type: "GET", 
+      data: data, 
+    }).then(function(resData) {
+      let userBank = resData.Banks; 
+      console.log('in userDashboard'); 
+      // console.log(resData); 
+      // console.log(userBank); 
+      if (userBank.length === 0) {
+        cryptoBal = 0; 
+        console.log('No Crypto Balance'); 
+        $('.userMain').empty(); 
+        let welcome = `<h2>Hold on for dear life ${resData.name}! #HODL</h2>`;
+        let currentBal = `<h4>Current Crypto-Balance: $${cryptoBal}</h4>`;
+        $('.userMain').append(welcome, currentBal); 
+      } else {
+        let balance = []; 
+        userBank.forEach((coin) => {
+          // call external api to get value of each coin value
+          $.ajax({
+            url: '/api/ticker/' + coin.cryptoId, 
+            type: 'GET'
+          }).then(function(resCoinData) {
+            // add logic for calculating user coins and market values
+            cryptoBal = 0; 
+            let newValue = coin.value * resCoinData.price; 
+            balance.push(newValue); 
+            console.log('newValue:' + newValue); 
+            console.log(balance); 
+            balance.forEach(function(value) {
+              console.log(value);
+              cryptoBal += value;  
+            }); 
+            console.warn(cryptoBal); 
+            return cryptoBal; 
+          }).then(function(cryptoBal) {
+            $('.userMain').empty(); 
+            let welcome = `<h2>Hold on for dear life ${resData.name}! #HODL</h2>`;
+            let currentBal = `<h4>Current Crypto-Balance: $${cryptoBal}</h4>`;
+            $('.userMain').append(welcome, currentBal); 
+          })
+        }); //END forEach
+        // console.warn(cryptoBal); 
 
-          // add box for main display of current holdings and "Welcome ____" message
-          $('.userMain').empty(); 
-          let welcome = `<h2>Welcome ${resData.name}!</h2>`;
-          let currentBal = `<h4>Current Crypto-Balance: ${cryptoBal}</h4>`;
-          $('.userMain').append(welcome, currentBal); 
-  
-        }); 
-      });
-    };
+        // console.log(balance); 
+        // console.log(balance.length); 
+        // for (i=0; i < balance.length; i++) {
+        //   console.log(balance[i]); 
+        // }
+        // balance.forEach(function(value) {
+        //   console.log(value);
+        //   // cryptoBal += value;  
+        // }); 
+
+        // add box for main display of current holdings and "Welcome ____" message
+        // $('.userMain').empty(); 
+        // let welcome = `<h2>Hold on for dear life ${resData.name}! #HODL</h2>`;
+        // let currentBal = `<h4>Current Crypto-Balance: $${cryptoBal}</h4>`;
+        // $('.userMain').append(welcome, currentBal); 
+      };
+    }); 
   }; 
 
   function addFavs(userCoinData) {
@@ -148,8 +170,8 @@ $(document).ready(function(){
       type: "POST", 
       data: userCoinData, 
     }).then(function(resData) {
-      console.log('user data retrieved');
-      console.log(resData); 
+      // console.log('user data retrieved');
+      // console.log(resData); 
       loadCoinCards(userData); 
     });
   }
@@ -160,9 +182,9 @@ $(document).ready(function(){
       type: "GET", 
       data: userData, 
     }).then(function(resData) {
-      console.log('Coin Cards to be loaded: ');
-      console.log(resData);
-      console.log(resData.Banks);
+      // console.log('Coin Cards to be loaded: ');
+      // console.log(resData);
+      // console.log(resData.Banks);
       let coinCards = resData.Banks; 
       if (coinCards.length === 0) {
         return; 
@@ -173,10 +195,10 @@ $(document).ready(function(){
             url: '/api/ticker/' + coin.cryptoId, 
             type: 'GET'
           }).then(function(resCoinData) {
-            console.log(resCoinData); 
+            // console.log(resCoinData); 
             let usdBal = resCoinData.price * coin.value; 
           
-            console.log(`${coin.cryptoId}: ${coin.value}`); 
+            // console.log(`${coin.cryptoId}: ${coin.value}`); 
             let tempDiv = $(`<div class="col s12 m6 l4" id="${coin.cryptoId}">`); 
             let mainCard = $('<div class="card horizontal hoverable">'); 
             // get coin image
@@ -247,8 +269,7 @@ $(document).ready(function(){
     });
   }; 
 
-  // $('.card').on('click', '#updateCoin', function() {
-
+  // edit modals for user cards
   $('.coinCardContainer').on('click', '#updateCoin', function() {
     let cryptoId = $(this).data('crypto'); 
     let userEmail = $(this).data('email'); 
@@ -259,20 +280,20 @@ $(document).ready(function(){
       cryptoId: cryptoId, 
       value: value
     } 
-    console.log(updateData);
+    // console.log(updateData);
     addAmounts(updateData);  
   })
 
   function addAmounts(updateData) {
-    console.log('in addAmounts request'); 
+    // console.log('in addAmounts request'); 
     // add logic for adding new coins
     $.ajax({
       url: `/api/user/${updateData.userEmail}/bank/${updateData.cryptoId}`, 
       type: "PUT", 
       data: updateData, 
     }).then(function(addCoin) {
-      console.log('user data retrieved');
-      console.log(addCoin); 
+      // console.log('user data retrieved');
+      // console.log(addCoin); 
       userDashboard(userData); 
 
     });
