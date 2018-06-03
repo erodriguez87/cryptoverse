@@ -5,7 +5,7 @@ listSymbols = {
 }
 request("https://api.coinmarketcap.com/v2/listings/", function(error, response, body) {
   if (!error && response.statusCode === 200) {
-    for (i=600; i < 700; i++){
+    for (i=500; i < 600; i++){
     listSymbols.symbol.push(JSON.parse(body).data[i].symbol)
     listSymbols.id.push(JSON.parse(body).data[i].id)
     };

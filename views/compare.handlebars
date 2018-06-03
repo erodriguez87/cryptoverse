@@ -54,7 +54,6 @@
   <div class = "chart-comp">
     <div class = "container">
       <div class = "col s12 center-align" id="compChart">
-        CHART GOES HERE!
       </div>
     </div>
   </div>
@@ -80,6 +79,7 @@
               </div>
             </div>
           </div>
+
           <div class = "col s6">
             <div class="row">
               <div class="col s12 m5">
@@ -100,6 +100,8 @@
         </div>
       </div>
     </div>
+
+    
   </div>
 
   <style>
@@ -116,25 +118,27 @@
   text-anchor: end;
 }
 .bar.positive {
-  fill: #494E6B;
+  fill: rgb(182, 191, 247);
 }
 
 .bar.negative {
-  fill:  #985E6D;
+  fill:  rgb(255, 139, 170);
 }
 
 .axis text {
-  font: 10px sans-serif;
-  color: #cccccc;
+  font: 12px sans-serif;
+  color: #ffffff;
+  fill: white;
 }
 
 .axis path, .axis line {
   fill: none;
   stroke: rgb(255, 255, 255);
   shape-rendering: auto;
+  color: #ffffff;
 }
 
 
 </style>
-
+<script src="http://d3js.org/d3.v2.min.js?2.10.0"></script>
 </body>
