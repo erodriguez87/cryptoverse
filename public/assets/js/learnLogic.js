@@ -23,7 +23,7 @@ $(document).ready(function(){
 
   function getCrypto(coin) {
     $.get("/api/ticker/" + coin, function(coin,res){
-      $("#price").html(`$${coin.price}`); 
+      $("#price").html(`$${coin.price.toFixed(2)}`); 
       $("#chg1H").html(`${coin.chg1H}%`); 
       $("#chg24H").html(`${coin.chg24H}%`); 
       $("#chg7d").html(`${coin.chg7d}%`); 
@@ -81,8 +81,8 @@ $(document).ready(function(){
           console.log('logging chart data' + marketShare)
 
           let dataset = [
-            { label: `${coin.symbol}`, count:`${marketShare}`},
-            { label: 'All Others', count: `${1-marketShare}`}
+            { label: `${coin.symbol}`, count:`${(marketShare*100).toFixed(2)}`},
+            { label: 'All Others', count: `${((1-marketShare)*100).toFixed(2)}`}
             ];
         
             let path = svg.selectAll('path')
