@@ -1,6 +1,5 @@
 $(document).ready(function(){
   $('select').formSelect();
-  console.log('in compare logic')
   $("#compareBtn").on("click", function(event) {
     let coin1 = $("#coinOption1").val();
     let coin2 = $("#coinOption2").val();
@@ -24,7 +23,43 @@ $(document).ready(function(){
       $("#chg24H2").html(`${coin[1].chg24H}%`)
       $("#chg7d2").html(`${coin[1].chg7d}%`)
 
+      let coin1Symbol = coin[0].symbol
+      let coin1_7d = parseFloat(coin[0].chg7d);
+      let coin1_24h = parseFloat(coin[0].chg24H);
+      let coin1_1h = parseFloat(coin[0].chg1H);
+
+      let coin2Symbol = coin[1].symbol
+      let coin2_7d = parseFloat(coin[1].chg7d);
+      let coin2_24h = parseFloat(coin[1].chg24H);
+      let coin2_1h = parseFloat(coin[1].chg1H);
+
+      let darray1 = [coin1Symbol + "-7 Days",coin1_7d];
+      let darray2 = [coin2Symbol + "-7 Days",coin2_7d];
+      let darray3 = [coin1Symbol + "-1 Day",coin1_24h];
+      let darray4 = [coin2Symbol + "-1 Day",coin2_24h];
+      let darray5 = [coin1Symbol + "1 Hour",coin1_1h];
+      let darray6 = [coin2Symbol + "1 Hour",coin2_1h];
+
+      let data = [];
+      data[0] = darray1;
+      data[1] = darray2;
+      data[2] = darray3;
+      data[3] = darray4;
+      data[4] = darray5;
+      data[5] = darray6;
+
+
+      // ,[coin1Symbol + "-1d",coin1_24h],[coin2Symbol + "-1d",coin2_24h],[coin1Symbol + "-1h",coin2_1h]]
+      // , ["${coin[0].symbol}-1d",${parseFloat(coin[0].chg24H)}], ["${coin[1].symbol}-1d",${parseFloat(coin[1].chg24H)}], ["${coin[0].symbol}-1h",${parseFloat(coin[0].chg1H)}], ["${coin[1].symbol}-1h",${parseFloat(coin[1].chg1H)}]
+      
+      // (`[["${coin[0].symbol}-7d",${parseFloat(coin[0].chg7d)}], ["${coin[1].symbol}-7d",${parseFloat(coin[1].chg7d)}], ["${coin[0].symbol}-1d",${parseFloat(coin[0].chg24H)}], ["${coin[1].symbol}-1d",${parseFloat(coin[1].chg24H)}], ["${coin[0].symbol}-1h",${parseFloat(coin[0].chg1H)}], ["${coin[1].symbol}-1h",${parseFloat(coin[1].chg1H)}]]`)
+
+      var label = `[["${coin[0].symbol}-7d",${coin[0].chg7d}], ["${coin[1].symbol}-7d",${coin[1].chg7d}], ["${coin[0].symbol}-1d",${coin[0].chg24H}], ["${coin[1].symbol}-1d",${coin[1].chg24H}], ["${coin[0].symbol}-1h",${coin[0].chg1H}], ["${coin[1].symbol}-1h",${coin[1].chg1H}]]`;
+
+      console.log('this is data ' + data);
+      createCompareChart(data);
     }); 
+    
    
   };
 
