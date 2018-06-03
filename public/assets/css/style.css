@@ -58,6 +58,10 @@ font-family: 'Roboto', sans-serif;
     height: 40%; 
   }
 
+  .activator {
+    cursor: pointer;
+  }
+
 /* Learn */
   HEAD
   /* Added CSS for the Pie Chart */

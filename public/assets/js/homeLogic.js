@@ -5,6 +5,7 @@ $(document).ready(function(){
   $('.modal-trigger').modal();
   let userData = {}; 
   let userCoinData = {}; 
+  let cryptoBal = 0; 
 
   // Grab logInBtn & SignUpBtn and make /login calls
   $("#logInBtn").on("click", function(event) {
@@ -65,6 +66,7 @@ $(document).ready(function(){
         id: resData.id, 
         name: resData.name, 
         email: resData.email, 
+        Banks: resData.Banks
       }
       console.log(userData);
     
@@ -75,7 +77,7 @@ $(document).ready(function(){
       // add sign out button
       
       // create welcome screen with market balance
-      userDashboard(resData); 
+      userDashboard(userData); 
            
       // edit modals for user cards
 
@@ -98,15 +100,17 @@ $(document).ready(function(){
     }); 
   }; // END loadUserData
 
-  function userDashboard(resData) {
+  function userDashboard(userData) {
     loadCoinCards(userData);
-    let userBank = resData.Banks; 
+    let userBank = userData.Banks; 
     console.log('in userDashboard'); 
+    console.warn(userData); 
+    console.warn(userBank); 
     if (userBank.length === 0) {
-      let cryptoBal = 0; 
+      cryptoBal = 0; 
       console.log('No Crypto Balance'); 
       $('.userMain').empty(); 
-      let welcome = `<h2>Welcome ${resData.name}!</h2>`;
+      let welcome = `<h2>Hold on for dear life ${userData.name}! #HODL</h2>`;
       let currentBal = `<h4>Current Crypto-Balance: ${cryptoBal}</h4>`;
       $('.userMain').append(welcome, currentBal); 
     } else {
@@ -120,7 +124,7 @@ $(document).ready(function(){
           let balance = []; 
           balance.push(coin.value * resCoinData.price); 
           console.log(balance); 
-          let cryptoBal = 0; 
+          cryptoBal = 0; 
           balance.forEach((value) => {
             cryptoBal += value;  
           }); 
@@ -136,7 +140,6 @@ $(document).ready(function(){
       });
     };
   }; 
-
 
   function addFavs(userCoinData) {
     // add logic for adding new coins
@@ -216,16 +219,26 @@ $(document).ready(function(){
             let imgDiv = $('<div class="card-image" style="padding-top: 30px">'); 
             imgDiv.append(`<img src="${coinImage}" style="max-width:80px; padding:5px">`);
             let cardDiv = $('<div class="card-stacked">'); 
+            let cardReveal = $(`
+            <div class="card-reveal updateForm">
+            <span class="card-title grey-text text-darken-4">Update Coin Balance<i class="material-icons right">close</i></span>
+            <form class="col s10 updateForm">
+              <input placeholder="Update Balance" id="${coin.cryptoId}Bal" type="number" class="validate">
+            </form>
+            <div class="formBtn">
+              <button class="btn-small updateCoin" id="updateCoin" data-email="${resData.email}" data-crypto="${coin.cryptoId}">Update</button>
+            </div>
+            </div>`);
             let cardContent = $('<div class="card-content" style="padding-top: 10px">'); 
             let cardInfo = 
             `<h5><b>${coin.cryptoId}</b></h5>\n
             <h6>USD Balance: $${usdBal}</h6>\n
             <h6>Coin Balance: ${coin.value}</h6>\n
             <h6>Coin Price: $${resCoinData.price}</h6>\n
-            <a class="modal-trigger" data-userEmail="${resData.email}" data-crypto="${coin.cryptoId}" href="#editCoin">Update</a>`
+            <a class="activator">Update</a>`
             cardContent.append(cardInfo); 
             cardDiv.append(cardContent); 
-            mainCard.append(imgDiv, cardDiv); 
+            mainCard.append(imgDiv, cardDiv, cardReveal); 
             tempDiv.append(mainCard); 
             $('.coinCardContainer').append(tempDiv); 
           });
@@ -234,15 +247,33 @@ $(document).ready(function(){
     });
   }; 
 
-  function addAmounts() {
+  // $('.card').on('click', '#updateCoin', function() {
+
+  $('.coinCardContainer').on('click', '#updateCoin', function() {
+    let cryptoId = $(this).data('crypto'); 
+    let userEmail = $(this).data('email'); 
+    let id = `#${cryptoId}Bal`; 
+    let value = parseFloat($(id).val().trim()); 
+    let updateData = {
+      userEmail: userEmail, 
+      cryptoId: cryptoId, 
+      value: value
+    } 
+    console.log(updateData);
+    addAmounts(updateData);  
+  })
+
+  function addAmounts(updateData) {
+    console.log('in addAmounts request'); 
     // add logic for adding new coins
     $.ajax({
-      url: "/api/user/:userEmail/bank/:cryptoId" + data.id, 
+      url: `/api/user/${updateData.userEmail}/bank/${updateData.cryptoId}`, 
       type: "PUT", 
-      data: data, 
+      data: updateData, 
     }).then(function(addCoin) {
       console.log('user data retrieved');
       console.log(addCoin); 
+      userDashboard(userData); 
 
     });
   }

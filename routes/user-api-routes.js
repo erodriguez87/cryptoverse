@@ -126,10 +126,6 @@ module.exports = function(app) {
   
   // POST add new favorites
   app.post('/api/user/:userEmail/bank', function(req, res) {
-    // console.log(req); 
-    // console.log("+++++++++++++++++++++++++++"); 
-    // console.log(req.body)
-
     jwt.verify(token, JWTpassword, function(err, data) {
       if (err) {
         res.sendStatus(403); 
@@ -154,15 +150,17 @@ module.exports = function(app) {
 
 
   // PUT to update user currency amounts
-  app.put('/api/user/:userEmail/bank/:cryptoId', ensureToken, function(req, res) {
-    jwt.verify(req.token, JWTpassword, function(err, data) {
+  app.put('/api/user/:userEmail/bank/:cryptoId', function(req, res) {
+    console.log('in PUT request'); 
+    jwt.verify(token, JWTpassword, function(err, data) {
       if (err) {
         res.sendStatus(403); 
       } else {
+        console.log(req.body); 
         let userEmail = req.params.userEmail; 
         let cryptoId = req.params.cryptoId; 
         db.Bank.update({
-          value: req.body,
+          value: req.body.value,
         }, {
             where: {
               userEmail: userEmail,
