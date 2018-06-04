@@ -1,21 +1,15 @@
 const db = require("../models"); // db.User
 const jwt = require('jsonwebtoken'); 
-const cookieParser = require('cookie-parser');
-// const jwtExp = require('express-jwt'); 
 const JWTpassword = 'JWTpassword';
 // const JWTpassword = process.env.JWTpassword; 
-
 let token = ''; 
 
 
 module.exports = function(app) {
-  app.use(cookieParser(JWTpassword));
-  // app.use('/api/user', jwtExp({ secret: JWTpassword }));
-
   
   // User Login 
   app.post('/api/user/login', function(req, res) {
-    // console.log(req); 
+    // search db for existing user
     db.User.findOne({
       where: {
         name: req.body.name, 
@@ -23,28 +17,17 @@ module.exports = function(app) {
         password: req.body.password
       }
     }).then(function(user) {
-      // console.log(user.name); 
+      // save user data without password as payload for jwt
       let passwordProtectedUser = {
         id: user.id,
         name: user.name,
         email: user.email,
       }
-      console.log(passwordProtectedUser); 
-      token = jwt.sign({passwordProtectedUser}, JWTpassword, {expiresIn: '1hr'}); 
-      console.log(token); 
-
-      // Create a cookie embedding JWT token
-      // res.cookie("token", token, {
-      //   secure: process.env.NODE_ENV === 'production',
-      //   signed: true
-      // });
+      // create jwt
+      token = jwt.sign({passwordProtectedUser}, JWTpassword); 
+      user.dataValues.token = token; 
 
       res.json(user); 
-
-    // res.redirect('/dashboard/' + user.id)
-    // redirect user to protected HTML route
-    // res.status(200).json({token}); 
-
     }).catch(function(err) {
       console.log('error', err);
       res.status(401).send('user name, email, or password incorrect');
@@ -53,24 +36,19 @@ module.exports = function(app) {
   
   // POST new user
   app.post("/api/user", function(req, res) {
+    // create new user in the db
     db.User.create(req.body)
       .then(function(newUser) {
+        // save user data without password as payload for jwt
         let passwordProtectedUser = {
           id: newUser.id,
           name: newUser.name,
           email: newUser.email,
         }
+        // create jwt
         token = jwt.sign({ passwordProtectedUser }, JWTpassword);
-        console.log(token);
-
-        // Create a cookie embedding JWT token
-        // res.cookie("token", token, {
-        //   secure: process.env.NODE_ENV === "production",
-        //   signed: true
-        // });
-
-        // let redirect = {url: "/dashboard", token: token}; 
-        // console.log(redirect.url); 
+        newUser.dataValues.token = token; 
+         
         res.json(newUser);
       })
       .catch(function(err) {
@@ -80,30 +58,25 @@ module.exports = function(app) {
   });
   
   // GET individual user data
-  // ************ removed ensureToken function *******
   app.get('/api/user/:userId', function(req, res) {
-    console.log('token: ', token); 
-    // console.log(req.query)
+    // verify jwt
     jwt.verify(token, JWTpassword, function(err, data) {
       if (err) {
         res.sendStatus(403); 
       } else {
         let userId = req.params.userId;
-        console.log(userId);  
         db.User.findOne({
           where: {
             id: req.query.id,
           }, 
-          include: [db.Bank] //Need name and table for users' currency balances
+          include: [db.Bank] 
         }).then(function(user) {
-          console.log('token verified'); 
-          // console.log(user); 
           res.json(user); 
         }).catch(function(err) {
           console.log(err); 
         });
-      }
-    })
+      };
+    });
   }); 
 
   // GET ALL users
@@ -112,20 +85,12 @@ module.exports = function(app) {
       include: [ db.Bank] 
     }).then(function(data) {
       res.json(data); 
-    })
-  })
-  
-  app.get('/api/banks', function(req, res) {
-    db.Bank.findAll().then(function(data) {
-      res.json(data); 
-    })
-  })
-
-  // PUT to update user personal info
-  // Needed??
+    });
+  });
   
   // POST add new favorites
   app.post('/api/user/:userEmail/bank', function(req, res) {
+    // verify jwt
     jwt.verify(token, JWTpassword, function(err, data) {
       if (err) {
         res.sendStatus(403); 
@@ -142,8 +107,7 @@ module.exports = function(app) {
           res.json(addCoin); 
         }).catch(function(err) {
           console.log(err); 
-        })
-
+        });
       };
     }); 
   }); 
@@ -169,34 +133,23 @@ module.exports = function(app) {
           }).then(function(updateCoin) {
             res.json(updateCoin); 
           });
-        }
+        };
     }); 
   }); 
 
-  // ensure token
-  function ensureToken(req, res, next) {
-    // get auth header value
-    // FORMAT - Authorization: Bearer <access token>
-    const bearerHeader = req.headers["authorization"];
-    // check if bearer is undefined
-    if (typeof bearerHeader !== 'undefined') {
-      const bearer = bearerHeader.split(" ");
-      const bearerToken = bearer[1];
-      req.token = bearerToken;
-      next();
-    } else {
-      res.sendStatus(403);
-    }
-  }
-
-  // function setLocalStorage(token) {
-  //   if (typeof localStorage === "undefined" || localStorage === null) {
-  //     var LocalStorage = require('node-localstorage').LocalStorage;
-  //     localStorage = new LocalStorage('./scratch');
-  //   }
-  //   localStorage.setItem('token', token);
-  //   console.log(localStorage.getItem(token));
-  // }
-
-
-}; 
+//   // ensure token
+//   function ensureToken(req, res, next) {
+//     // get auth header value
+//     // FORMAT - Authorization: Bearer <access token>
+//     const bearerHeader = req.headers["authorization"];
+//     // check if bearer is undefined
+//     if (typeof bearerHeader !== 'undefined') {
+//       const bearer = bearerHeader.split(" ");
+//       const bearerToken = bearer[1];
+//       req.token = bearerToken;
+//       next();
+//     } else {
+//       res.sendStatus(403);
+//     }
+//   };
+// }; 
