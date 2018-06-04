@@ -11,14 +11,14 @@
       <div class = "col s12">
         <div class = "selectors">
           <div class = "row">
-            <div class="input-field col s6">
+            <div class="input-field col s4">
               <select id="coinOption1">
                 <option value="" disabled selected>Choose a Currency</option>
                 <option value="ada">Cardano (ADA)</option>
                 <option value="bat">Basic Attention Token (BAT)</option>
                 <option value="btc">Bitcoin (BTC)</option>
                 <option value="doge">Dogecoin (DOGE)</option>
-                <option value="eth">Etherium (ETH)</option>
+                <option value="eth">Ethereum (ETH)</option>
                 <option value="ltc">Litecoin (LTC)</option>
                 <option value="trx">Tron (TRX)</option>
                 <option value="ven">VeChain (VEN)</option>
@@ -27,14 +27,14 @@
               </select>
             </div>
 
-            <div class="input-field col s6" >
+            <div class="input-field col s4" >
               <select id="coinOption2">
                 <option value="" disabled selected>Choose a Currency</option>
                 <option value="ada">Cardano (ADA)</option>
                 <option value="bat">Basic Attention Token (BAT)</option>
                 <option value="btc">Bitcoin (BTC)</option>
                 <option value="doge">Dogecoin (DOGE)</option>
-                <option value="eth">Etherium (ETH)</option>
+                <option value="eth">Ethereum (ETH)</option>
                 <option value="ltc">Litecoin (LTC)</option>
                 <option value="trx">Tron (TRX)</option>
                 <option value="ven">VeChain (VEN)</option>
@@ -42,8 +42,10 @@
                 <option value="xrp">Ripple (XRP)</option>
               </select>
             </div>
-             
-            <button class="waves-effect waves-light btn center" id="compareBtn">Beep Boop.</button>
+            
+            <div class ="col s2">
+              <button class="waves-effect waves-light btn center" id="compareBtn">Beep Boop.</button>
+            </div>
         
           </div>
         </div>
@@ -51,47 +53,41 @@
     </div>
   </div>
 
-  <div class = "chart-comp">
-    <div class = "container">
-      <div class = "col s12 center-align" id="compChart">
-        CHART GOES HERE!
-      </div>
-    </div>
-  </div>
 
   <div class = "comparison-box">
     <div class = "container">
       <div class = "col s12">
         <div class = "row">
+            <div class="card-action">
+              <div class="large material-icons right-align">call_split<span> BEST FOR MOON?</span></div>
+            </div>
           <div class = "col s6">
             <div class="row">
-              <div class="col s12 m5">
+              <div class="col s12 m12">
                 <div class="card-panel transparent">
+                  
                   <span class="white-text" id="compareCoin1">
-                    <h4>Name: <span id="name1"></span></h4>
+                    <h4><span id="name1"></span></h4>
                     <h4>Price: <span id="price1"></span></h4>
                     <h6>Last Hour: <span id="chg1H1"></span></h6>
                     <h6>24 Hours: <span id="chg24H1"></span></h6>
                     <h6>7 Days: <span id="chg7d1"></span></h6>
-                    <h6>Features: <span id="features1"></span></h6>
-                    <h6>Disadvantages: <span id="disadvantage1"></span></h6>
                   </span>
                 </div>
               </div>
             </div>
           </div>
+
           <div class = "col s6">
             <div class="row">
-              <div class="col s12 m5">
+              <div class="col s12 m12">
                 <div class="card-panel transparent">
                   <span class="white-text" id="compareCoin2">
-                    <h4>Name: <span id="name2"></span></h4>
+                    <h4><span id="name2"></span></h4>
                     <h4>Price: <span id="price2"></span></h4>
                     <h6>Last Hour: <span id="chg1H2"></span></h6>
                     <h6>24 Hours: <span id="chg24H2"></span></h6>
                     <h6>7 Days: <span id="chg7d2"></span></h6>
-                    <h6>Features: <span id="features2"></span></h6>
-                    <h6>Disadvantages: <span id="disadvantage2"></span></h6>
                   </span>
                 </div>
               </div>
@@ -100,6 +96,19 @@
         </div>
       </div>
     </div>
+
+
+    <div class = "chart-comp">
+      <div class = "container">
+        <div class="card-action">
+                    <div class="large material-icons right-align">timeline<span> PERFORMANCE OVER  TIME</span></div>
+                  </div>
+        <div class = "col s8 center-align" id="compChart">
+        </div>
+      </div>
+    </div>
+
+    
   </div>
 
   <style>
@@ -116,25 +125,27 @@
   text-anchor: end;
 }
 .bar.positive {
-  fill: #494E6B;
+  fill: rgb(182, 191, 247);
 }
 
 .bar.negative {
-  fill:  #985E6D;
+  fill:  rgb(255, 139, 170);
 }
 
 .axis text {
-  font: 10px sans-serif;
-  color: #cccccc;
+  font: 12px sans-serif;
+  color: #ffffff;
+  fill: white;
 }
 
 .axis path, .axis line {
   fill: none;
   stroke: rgb(255, 255, 255);
   shape-rendering: auto;
+  color: #ffffff;
 }
 
 
 </style>
-
+<script src="http://d3js.org/d3.v2.min.js?2.10.0"></script>
 </body>

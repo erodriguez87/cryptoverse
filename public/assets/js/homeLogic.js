@@ -248,9 +248,9 @@ $(document).ready(function(){
       userEmail: userEmail, 
       cryptoId: cryptoId, 
       value: value
-    } 
+    };
     addAmounts(updateData);  
-  })
+  });
 
   function addAmounts(updateData) {
     // add logic for adding new coins
@@ -262,4 +262,7 @@ $(document).ready(function(){
       userDashboard(userData); 
     });
   };
+  
+  $('.slider').slider();
+
 });

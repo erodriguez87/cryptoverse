@@ -4,20 +4,6 @@ $(document).ready(function(){
     let coin = $(this).attr("id"); 
     getData(coin); 
     getCrypto(coin);
-
-    // "id": 1,
-    // "cryptoId": "btc",
-    // "name": "bitcoin",
-    // "github": "https://github.com/bitcoin/bitcoin",
-    // "website": "https://bitcoin.org/en/",
-    // "shortDesc": "the grand daddy",
-    // "features": "fast currency",
-    // "markets": "currency",
-    // "disadvantages": "expensive transactions, slow",
-    // "started": "2009",
-    // "createdAt": "2018-05-31T13:27:59.000Z",
-    // "updatedAt": "2018-05-31T13:27:59.000Z"
-
   });
 
   function getData(coin) {
@@ -33,22 +19,15 @@ $(document).ready(function(){
     $("a#web").attr('href', coin.website); 
     $("a#git").attr('href', coin.github); 
     }); 
-    // $.ajax({
-    //   method: "GET",
-    //   url: "/api/learn/" + coin
-    // }).then(function(data) {
-    // });
-    
   };
 
   function getCrypto(coin) {
     $.get("/api/ticker/" + coin, function(coin,res){
-      $("#price").html(`$${coin.price}`); 
+      $("#price").html(`$${coin.price.toFixed(2)}`); 
       $("#chg1H").html(`${coin.chg1H}%`); 
       $("#chg24H").html(`${coin.chg24H}%`); 
       $("#chg7d").html(`${coin.chg7d}%`); 
       $("#mktCap").html(`$${coin.mktCap.toLocaleString('en-US', {style:"decimal",minimumFractionDigits: 0})}`); 
-
       
         (function(d3) {
           'use strict';
@@ -102,8 +81,8 @@ $(document).ready(function(){
           console.log('logging chart data' + marketShare)
 
           let dataset = [
-            { label: `${coin.symbol}`, count:`${marketShare}`},
-            { label: 'All Others', count: `${1-marketShare}`}
+            { label: `${coin.symbol}`, count:`${(marketShare*100).toFixed(2)}`},
+            { label: 'All Others', count: `${((1-marketShare)*100).toFixed(2)}`}
             ];
         
             let path = svg.selectAll('path')

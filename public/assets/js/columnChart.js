@@ -16,8 +16,8 @@ function createCompareChart(data){
   
         .datum(data)
           .call(columnChart()
-            .width(480)
-            .height(400)
+            .width(720)
+            .height(600)
             .x(function(d, i) { return d[0]; })
             .y(function(d, i) { return d[1]; }));
 

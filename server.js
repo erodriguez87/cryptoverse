@@ -24,7 +24,6 @@ require("./routes/user-api-routes.js")(app);
 require("./routes/learn-api-routes.js")(app);
 require("./routes/news-api-routes.js")(app);
 require("./routes/crypto-api-routes.js")(app);
-// require("./routes/crypto-api-routes.js")(app);
 
 // Sequelize Sync ======================
 db.sequelize.sync({ force: true }).then(function() {

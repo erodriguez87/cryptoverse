@@ -73,7 +73,8 @@ font-family: 'Roboto', sans-serif;
     .tooltip {                                                        
       background: #eee;                                               
       box-shadow: 0 0 5px #999999;                                    
-      color: #333;                                                    
+      color: rgb(70, 191, 196);      
+      fill: rgb(16, 219, 255);                                              
       display: none;                                                  
       font-size: 16px;                                                
       left: 130px;                                                    
@@ -81,12 +82,14 @@ font-family: 'Roboto', sans-serif;
       position: absolute;                                             
       text-align: center;                                             
       top: 95px;                                                      
-      width: 80px;                                                    
+      width: 100px;                                                    
       z-index: 10;                                                    
     }   
 
     .legend {
-      font-size: 12px;
+      font-size: 14px;
+      color: white;
+      fill: white;
     }
 
     rect {

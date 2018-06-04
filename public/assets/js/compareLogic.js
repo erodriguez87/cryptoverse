@@ -3,7 +3,6 @@ $(document).ready(function(){
   $("#compareBtn").on("click", function(event) {
     let coin1 = $("#coinOption1").val();
     let coin2 = $("#coinOption2").val();
-    console.log(coin1,coin2);
     getCompare(coin1,coin2);
 
 
@@ -47,15 +46,7 @@ $(document).ready(function(){
       data[3] = darray4;
       data[4] = darray5;
       data[5] = darray6;
-
-
-      // ,[coin1Symbol + "-1d",coin1_24h],[coin2Symbol + "-1d",coin2_24h],[coin1Symbol + "-1h",coin2_1h]]
-      // , ["${coin[0].symbol}-1d",${parseFloat(coin[0].chg24H)}], ["${coin[1].symbol}-1d",${parseFloat(coin[1].chg24H)}], ["${coin[0].symbol}-1h",${parseFloat(coin[0].chg1H)}], ["${coin[1].symbol}-1h",${parseFloat(coin[1].chg1H)}]
-      
-      // (`[["${coin[0].symbol}-7d",${parseFloat(coin[0].chg7d)}], ["${coin[1].symbol}-7d",${parseFloat(coin[1].chg7d)}], ["${coin[0].symbol}-1d",${parseFloat(coin[0].chg24H)}], ["${coin[1].symbol}-1d",${parseFloat(coin[1].chg24H)}], ["${coin[0].symbol}-1h",${parseFloat(coin[0].chg1H)}], ["${coin[1].symbol}-1h",${parseFloat(coin[1].chg1H)}]]`)
-
-      var label = `[["${coin[0].symbol}-7d",${coin[0].chg7d}], ["${coin[1].symbol}-7d",${coin[1].chg7d}], ["${coin[0].symbol}-1d",${coin[0].chg24H}], ["${coin[1].symbol}-1d",${coin[1].chg24H}], ["${coin[0].symbol}-1h",${coin[0].chg1H}], ["${coin[1].symbol}-1h",${coin[1].chg1H}]]`;
-
+ 
       console.log('this is data ' + data);
       createCompareChart(data);
     }); 
