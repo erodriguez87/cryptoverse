@@ -3,7 +3,7 @@
 #### Heroku: https://cryptoverse.herokuapp.com/
 
 ## Description:
-To provide a learning and comparison application for newcomers in the world of cryptocurrency. The application give users an intro to the top projects in the industry complete with links to learn more about each project, see relevant information, and compare investment opportunities. 
+A learning and comparison application for newcomers in the world of cryptocurrency. The application give users an intro to the top projects in the industry complete with links to learn more about each project, see relevant information, and compare investment opportunities. 
 
 ![title image](/public/assets/images/title.png)
 
@@ -46,4 +46,4 @@ Node dependencies:
 - JSON Web Tokens - JSON-based open standard (RFC 7519) for creating access tokens for securely transmitting information between client and server
 
 ## Authors:  
-Susan Davenport, Allen Welch, Eddie Rodriguez
+Susan Davenport, Allen Welch, & Eddie Rodriguez

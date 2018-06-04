@@ -136,6 +136,7 @@ module.exports = function(app) {
         };
     }); 
   }); 
+}; 
 
 //   // ensure token
 //   function ensureToken(req, res, next) {
@@ -152,4 +153,3 @@ module.exports = function(app) {
 //       res.sendStatus(403);
 //     }
 //   };
-// }; 
