@@ -62,6 +62,7 @@ const request = require("request");
               JSON.parse(body).data[str].name;
               success = true;
             } catch (e) {
+              success = false;
               return false;
             }
             if (success){
@@ -109,7 +110,6 @@ const request = require("request");
                 }
               } catch(e) {
                 console.log('this errored out ' + nameKey2)
-                return false
               }
                 
               }; 
