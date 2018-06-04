@@ -3,7 +3,6 @@ $(document).ready(function(){
   $("#compareBtn").on("click", function(event) {
     let coin1 = $("#coinOption1").val();
     let coin2 = $("#coinOption2").val();
-    console.log(coin1,coin2);
     getCompare(coin1,coin2);
 
 
