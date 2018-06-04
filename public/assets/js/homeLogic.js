@@ -1,5 +1,4 @@
 $(document).ready(function(){
-  // localStorage.getItem(token)
   // Sign-in Modal Trigger
   $('.modal').modal();
   $('.modal-trigger').modal();
@@ -14,17 +13,21 @@ $(document).ready(function(){
       email: $('#email').val().trim(), 
       password: $('#password').val().trim()
     }
-    // console.log(user); 
+    // validate email and password length
     if (user.email.includes('@')) {
-      $.ajax({
-        url: "/api/user/login",
-        type: "POST",
-        data: user,
-      }).then(function(data) {
-        // console.log('user added and data recevied');
-        // console.log(data);
-        loadUserData(data);       
-      }); 
+      if(user.password.length >= 6) {
+        $.ajax({
+          url: "/api/user/login",
+          type: "POST",
+          data: user,
+        }).then(function(data) {
+          // set token to local storage
+          localStorage.setItem('token', data.token);
+          loadUserData(data);       
+        }); 
+      } else {
+        M.toast({html: 'Password must contain at least 6 characters'})
+      }
     } else {
       M.toast({html: 'Please enter a valid email address'})
     }
@@ -36,31 +39,33 @@ $(document).ready(function(){
       email: $('#email').val().trim(), 
       password: $('#password').val().trim()
     }
-    // console.log(newUser); 
+    // validate email and password length
     if (newUser.email.includes('@')) {
-      $.ajax({
-        url: "/api/user",
-        type: "POST",
-        data: newUser,
-      }).then(function(data) {
-        // console.log('user added and data recevied');
-        // console.log(data);
-        loadUserData(data);       
-      }); 
+      if(newUser.password.length >= 6) {
+        $.ajax({
+          url: "/api/user",
+          type: "POST",
+          data: newUser,
+        }).then(function(data) {
+          // set token to local storage
+          localStorage.setItem('token', data.token);
+          loadUserData(data);       
+        }); 
+      } else {
+        M.toast({html: 'Password must contain at least 6 characters'})
+      }
     } else {
       M.toast({html: 'Please enter a valid email address'})
     }
   });
 
   function loadUserData(data) {
-    // GET user data to display on page =====
+    // GET user data to display on page 
     $.ajax({
       url: "/api/user/:" + data.id, 
       type: "GET", 
       data: data, 
     }).then(function(resData) {
-      // console.log('user data retrieved');
-      // console.log(resData); 
       // save user data to global var
       userData = {
         id: resData.id, 
@@ -68,14 +73,11 @@ $(document).ready(function(){
         email: resData.email, 
         Banks: resData.Banks
       }
-      // console.log(userData);
-    
+
       // remove sign-in button
       $('.signInBtn').addClass('hide'); 
       $('.animated-chart').addClass('hide'); 
-
-      // add sign out button
-      
+    
       // create welcome screen with market balance
       userDashboard(resData); 
              
@@ -85,12 +87,10 @@ $(document).ready(function(){
       $("#addCoinBtn").on("click", function(event) {
         // save user coin data to global var
         userCoinData = {
-          // name: userData.name,
           UserId: userData.id,
           userEmail: userData.email, 
           cryptoId: $('#coinOptions').val(),
         }
-        // console.log(userCoinData); 
         addFavs(userCoinData); 
       }); 
 
@@ -105,12 +105,9 @@ $(document).ready(function(){
       data: data, 
     }).then(function(resData) {
       let userBank = resData.Banks; 
-      console.log('in userDashboard'); 
-      // console.log(resData); 
-      // console.log(userBank); 
+      // check if user has coins already saved
       if (userBank.length === 0) {
         cryptoBal = 0; 
-        console.log('No Crypto Balance'); 
         $('.userMain').empty(); 
         let welcome = `<h2>Hold on for dear life ${resData.name}! #HODL</h2>`;
         let currentBal = `<h4>Current Crypto-Balance: $${cryptoBal}</h4>`;
@@ -123,42 +120,21 @@ $(document).ready(function(){
             url: '/api/ticker/' + coin.cryptoId, 
             type: 'GET'
           }).then(function(resCoinData) {
-            // add logic for calculating user coins and market values
+            // logic for calculating user coins and market values
             cryptoBal = 0; 
             let newValue = coin.value * resCoinData.price; 
             balance.push(newValue); 
-            console.log('newValue:' + newValue); 
-            console.log(balance); 
             balance.forEach(function(value) {
-              console.log(value);
               cryptoBal += value;  
             }); 
-            console.warn(cryptoBal); 
             return cryptoBal; 
           }).then(function(cryptoBal) {
             $('.userMain').empty(); 
             let welcome = `<h2>Hold on for dear life ${resData.name}! #HODL</h2>`;
             let currentBal = `<h4>Current Crypto-Balance: $${cryptoBal}</h4>`;
             $('.userMain').append(welcome, currentBal); 
-          })
+          });
         }); //END forEach
-        // console.warn(cryptoBal); 
-
-        // console.log(balance); 
-        // console.log(balance.length); 
-        // for (i=0; i < balance.length; i++) {
-        //   console.log(balance[i]); 
-        // }
-        // balance.forEach(function(value) {
-        //   console.log(value);
-        //   // cryptoBal += value;  
-        // }); 
-
-        // add box for main display of current holdings and "Welcome ____" message
-        // $('.userMain').empty(); 
-        // let welcome = `<h2>Hold on for dear life ${resData.name}! #HODL</h2>`;
-        // let currentBal = `<h4>Current Crypto-Balance: $${cryptoBal}</h4>`;
-        // $('.userMain').append(welcome, currentBal); 
       };
     }); 
   }; 
@@ -169,9 +145,7 @@ $(document).ready(function(){
       url: `/api/user/:${userCoinData.userEmail}/bank`, 
       type: "POST", 
       data: userCoinData, 
-    }).then(function(resData) {
-      // console.log('user data retrieved');
-      // console.log(resData); 
+    }).then(function(resData) { 
       loadCoinCards(userData); 
     });
   }
@@ -182,23 +156,18 @@ $(document).ready(function(){
       type: "GET", 
       data: userData, 
     }).then(function(resData) {
-      // console.log('Coin Cards to be loaded: ');
-      // console.log(resData);
-      // console.log(resData.Banks);
       let coinCards = resData.Banks; 
       if (coinCards.length === 0) {
         return; 
       } else {
         $('.coinCardContainer').empty(); 
+        // get current market price for user coins
         coinCards.forEach((coin) => {
           $.ajax({
             url: '/api/ticker/' + coin.cryptoId, 
             type: 'GET'
           }).then(function(resCoinData) {
-            // console.log(resCoinData); 
             let usdBal = resCoinData.price * coin.value; 
-          
-            // console.log(`${coin.cryptoId}: ${coin.value}`); 
             let tempDiv = $(`<div class="col s12 m6 l4" id="${coin.cryptoId}">`); 
             let mainCard = $('<div class="card horizontal hoverable">'); 
             // get coin image
@@ -279,27 +248,21 @@ $(document).ready(function(){
       userEmail: userEmail, 
       cryptoId: cryptoId, 
       value: value
-    } 
-    // console.log(updateData);
+    };
     addAmounts(updateData);  
-  })
+  });
 
   function addAmounts(updateData) {
-    // console.log('in addAmounts request'); 
     // add logic for adding new coins
     $.ajax({
       url: `/api/user/${updateData.userEmail}/bank/${updateData.cryptoId}`, 
       type: "PUT", 
       data: updateData, 
     }).then(function(addCoin) {
-      // console.log('user data retrieved');
-      // console.log(addCoin); 
       userDashboard(userData); 
-
     });
-  }
+  };
   
   $('.slider').slider();
-
 
 });
