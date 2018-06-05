@@ -91,13 +91,15 @@
   </div>
 
   <!-- NEWS CONTAINER -->
-  <div class = "news-section">
+  {{!-- <div class = "news-section">
     <div class = "row">
       <div class="col l12 s12">
         <h2>News</h2>
           <div class="slider">
               <ul class="slides"></ul>
             </div>
+
+       
           {{!-- <div class ="row">
             <div class="col s6">
               <div class ="newsInfo"></div>
@@ -105,4 +107,59 @@
         </div> --}}
       </div>
     </div>
-  </div>
+  </div> --}}
+
+<div class="slider">
+<ul class="slides">
+  <li>
+    <img id="img1" src=""> 
+    <div class="caption center-align">
+      <h3 id="title1"></h3>
+      <h5 id="url1" class="light grey-text text-lighten-3"></h5>
+    </div>
+  </li>
+  <li>
+    <img id="img2" src=""> 
+    <div class="caption center-align">
+      <h3 id="title2"></h3>
+      <h5 id="url1" class="light grey-text text-lighten-3"></h5>
+    </div>
+  </li>
+  <li>
+    <img id="img3" src=""> 
+    <div class="caption center-align">
+      <h3 id="title3"></h3>
+      <h5 id="url1" class="light grey-text text-lighten-3"></h5>
+    </div>
+  </li>
+  <li>
+    <img id="img4" src=""> 
+    <div class="caption center-align">
+      <h3 id="title4"></h3>
+      <h5 id="url1" class="light grey-text text-lighten-3"></h5>
+    </div>
+  </li>
+  <li>
+    <img id="img5" src=""> 
+    <div class="caption center-align">
+      <h3 id="title5"></h3>
+      <h5 id="url1" class="light grey-text text-lighten-3"></h5>
+    </div>
+  </li>
+ 
+</ul> --}}
+
+     <script>
+      function getNews(){
+
+var currentURL = window.location.origin;
+
+
+
+getNews();
+
+   $(document).ready(function () {
+       $('.slider').slider({full_width: true});
+   });
+   
+</script>
