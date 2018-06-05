@@ -1,5 +1,6 @@
 const NewsAPI = require('newsapi');
-const newsapi = new NewsAPI('4f9397d3c24942eb92519616eedfbc23');
+const newsAPIkey = process.env.newsAPIkey; 
+const NEWS_APIkey = new NewsAPI('4f9397d3c24942eb92519616eedfbc23');
 
   module.exports = function(app) {
     var newsRes; 
