@@ -1,14 +1,6 @@
 function createCompareChart(data){ 
-  console.log(data);
-  console.log('type of ' + typeof(data))
   data[0][1] = Number(data[0][1]);
-  console.log(data[0][0] + ' type of ' + typeof(data[0][0]));
-  console.log(data[0][1] + ' type of ' + typeof(data[0][1]));
-  // data = [["BTC-7d",3.85], ["LTC-7d",4.03], ["BTC-1d",2.02], ["LTC-1d",3.26], ["BTC-1h",0.26], ["LTC-1h",0.06]];
-  // console.log('type of ' + typeof(data))
-  // console.log(data[0][0] + ' type of ' + typeof(data[0][0]));
-  // console.log(data[0][1] + ' type of ' + typeof(data[0][1]));
-  
+
     $('#compChart').empty();
     d3.selectAll(" svg > *").remove();
 

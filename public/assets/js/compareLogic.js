@@ -7,7 +7,7 @@ $(document).ready(function(){
 
 
   });
-
+  // calls the api route that compares two coins. this will go through the coinmarket cap api and parse results for the two user selected coins then put the response on the html page. It also calls the column chart creator. This will pass the same information that was posted to HTML back to the chart creator and it generates a comparison bar graph on the front end
   function getCompare(coin1,coin2) {
     $.get("/api/compare/" + coin1 + '/' + coin2, function(coin) {
       $("#name1").html(`${coin[0].name}`); 
@@ -47,7 +47,6 @@ $(document).ready(function(){
       data[4] = darray5;
       data[5] = darray6;
  
-      console.log('this is data ' + data);
       createCompareChart(data);
     }); 
     

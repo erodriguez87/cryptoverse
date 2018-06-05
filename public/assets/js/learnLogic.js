@@ -1,11 +1,12 @@
 $(document).ready(function(){
-      
+  // listens for the click on the learn handle bar page. This chooses which coin to make our two calls about
   $(".coinBtns").on("click", function(event) {
     let coin = $(this).attr("id"); 
     getData(coin); 
     getCrypto(coin);
   });
 
+  // Calls the route that talks to our internal database and posts the result on the html front end
   function getData(coin) {
     $.get("/api/learn/" + coin, function(coin) {
       // console.log(coin.name); 
@@ -21,6 +22,7 @@ $(document).ready(function(){
     }); 
   };
 
+  // Calls the crypto api from coinmarketcap and posts the prices on the learn page. also generates a pie chart with market information
   function getCrypto(coin) {
     $.get("/api/ticker/" + coin, function(coin,res){
       $("#price").html(`$${coin.price.toFixed(2)}`); 
@@ -71,14 +73,8 @@ $(document).ready(function(){
             .attr('class', 'percent');
             
           let marketPie = parseFloat(coin.mktCap.replace(/,/g, ''));
-          let marketTotal = 333171578388
-
-          console.log('type of ' + typeof(marketPie) + typeof(marketTotal));
-          console.log('market cap ' + marketPie)
-
-          console.log('market total ' + parseInt(marketTotal))
+          let marketTotal = 343697420662
           let marketShare = marketPie/parseInt(marketTotal);
-          console.log('logging chart data' + marketShare)
 
           let dataset = [
             { label: `${coin.symbol}`, count:`${(marketShare*100).toFixed(2)}`},
@@ -134,6 +130,7 @@ $(document).ready(function(){
     });
   }
   
+  // function set up to populate the the learning slider on the top of the learn page.
   function runSlider (){
     var slideImageArray = []; 
     var slide1 = $('<img class="slideImages" id="slide1" src="assets/images/slide1.png">'); 
