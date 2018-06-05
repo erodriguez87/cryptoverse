@@ -20,7 +20,7 @@
   <div class = "animated-chart">
     <div class = "row">
       <div class="col l12 m12 s12 center-align">
-        <img src = "../assets/images/launch.jpg" style="width: 1000px; height:320px"></a>
+        <img class="responsive-img" src = "../assets/images/universe2.jpg" style="width: 1000px; max-height:320px"></a>
       </div>
     </div>
   </div>
@@ -62,7 +62,7 @@
               <option value="BAT">Basic Attention Token (BAT)</option>
               <option value="BTC">Bitcoin (BTC)</option>
               <option value="DOGE">Dogecoin (DOGE)</option>
-              <option value="ETH">Etherium (ETH)</option>
+              <option value="ETH">Ethereum (ETH)</option>
               <option value="LTC">Litecoin (LTC)</option>
               <option value="TRX">Tron (TRX)</option>
               <option value="VEN">VeChain (VEN)</option>
@@ -97,9 +97,7 @@
         <h2>News</h2>
           <div class="slider">
               <ul class="slides"></ul>
-            </div>
-
-       
+          </div>
           {{!-- <div class ="row">
             <div class="col s6">
               <div class ="newsInfo"></div>
@@ -107,59 +105,4 @@
         </div> --}}
       </div>
     </div>
-  </div> --}}
-
-<div class="slider">
-<ul class="slides">
-  <li>
-    <img id="img1" src=""> 
-    <div class="caption center-align">
-      <h3 id="title1"></h3>
-      <h5 id="url1" class="light grey-text text-lighten-3"></h5>
-    </div>
-  </li>
-  <li>
-    <img id="img2" src=""> 
-    <div class="caption center-align">
-      <h3 id="title2"></h3>
-      <h5 id="url1" class="light grey-text text-lighten-3"></h5>
-    </div>
-  </li>
-  <li>
-    <img id="img3" src=""> 
-    <div class="caption center-align">
-      <h3 id="title3"></h3>
-      <h5 id="url1" class="light grey-text text-lighten-3"></h5>
-    </div>
-  </li>
-  <li>
-    <img id="img4" src=""> 
-    <div class="caption center-align">
-      <h3 id="title4"></h3>
-      <h5 id="url1" class="light grey-text text-lighten-3"></h5>
-    </div>
-  </li>
-  <li>
-    <img id="img5" src=""> 
-    <div class="caption center-align">
-      <h3 id="title5"></h3>
-      <h5 id="url1" class="light grey-text text-lighten-3"></h5>
-    </div>
-  </li>
- 
-</ul> --}}
-
-     <script>
-      function getNews(){
-
-var currentURL = window.location.origin;
-
-
-
-getNews();
-
-   $(document).ready(function () {
-       $('.slider').slider({full_width: true});
-   });
-   
-</script>
+  </div>

@@ -263,6 +263,11 @@ $(document).ready(function(){
     });
   };
   
-  $('.slider').slider();
+  // $('.slider').slider();
 
+  $(document).ready(function(){
+    $('.sidenav').sidenav();
+    $('.slider').slider();
+
+  });
 });

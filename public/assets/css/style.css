@@ -12,12 +12,17 @@ font-family: 'Roboto', sans-serif;
   }
 
   nav {
+    height: 80px;
     /* padding-bottom: 20px 0; */
     /* margin: 10px 0; */
   }
   .nav-wrapper {
     background-color: #192231;
     /* padding: 10px 0;  */
+  }
+
+  .menuIcon {
+    font-size: 80px
   }
 
   #button {
@@ -61,6 +66,8 @@ font-family: 'Roboto', sans-serif;
   .activator {
     cursor: pointer;
   }
+
+
 
 /* Learn */
   HEAD
@@ -124,11 +131,18 @@ font-family: 'Roboto', sans-serif;
     padding: 20px 0;
   }
 
+  .coinBtns {
+    cursor: pointer;
+  }
+
+  .slideImages {
+    border-radius: 20px; 
+  }
+
 /* Compare */
 #buttonForComp {
   margin-top: 40px;
 }
-/* Dashboard */
 
 /* Footer */
   .page-footer{
