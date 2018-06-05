@@ -1,7 +1,9 @@
+require('dotenv').config();
 const db = require("../models"); // db.User
 const jwt = require('jsonwebtoken'); 
 const JWTpassword = process.env.JWTpassword; 
 let token = ''; 
+
 
 
 module.exports = function(app) {

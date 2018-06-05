@@ -1,3 +1,4 @@
+require('dotenv').config();
 const NewsAPI = require('newsapi');
 const NEWS_APIkey = process.env.NEWS_APIkey; 
 
