@@ -17,7 +17,7 @@
   },
   "production": {
     "username": "rwdfjyw6zdg3rdgz",
-    "password": "process.env.JAWSpassword",
+    "password": "fcborrdjcyy2ro35",
     "database": "jac1r3ynjjt1rg0d",
     "host": "nuskkyrsgmn5rw8c.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "port": 3306,
