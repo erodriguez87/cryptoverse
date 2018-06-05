@@ -1,7 +1,6 @@
 const db = require("../models"); // db.User
 const jwt = require('jsonwebtoken'); 
-const JWTpassword = 'JWTpassword';
-// const JWTpassword = process.env.JWTpassword; 
+const JWTpassword = process.env.JWTpassword; 
 let token = ''; 
 
 
