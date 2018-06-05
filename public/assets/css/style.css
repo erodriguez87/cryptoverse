@@ -62,6 +62,9 @@ font-family: 'Roboto', sans-serif;
     cursor: pointer;
   }
 
+  .news-section img{
+    opacity: .6;
+  }
 /* Learn */
   HEAD
   /* Added CSS for the Pie Chart */
