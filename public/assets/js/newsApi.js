@@ -18,7 +18,7 @@ $.ajax({url: currentURL + "/api/news", method: "GET"})
       $(`#${dateText}`).append(response.articles[i].publishedAt);
 
       let linkText = 'url' + [i]
-      $(`#${linkText}`).append('<a href="'+(response.articles[i].url)+'">Read More</a>');
+      $(`#${linkText}`).append('<a target="_blank" href="'+(response.articles[i].url)+'">Read More</a>');
   };
 })
 }
