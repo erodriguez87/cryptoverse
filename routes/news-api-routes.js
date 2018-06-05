@@ -7,7 +7,7 @@ const NEWS_APIkey = new NewsAPI('4f9397d3c24942eb92519616eedfbc23');
     // console.log('inside news API');
 
     app.get('/api/news', function(req, res){
-      newsapi.v2.everything({
+      NEWS_APIkey.v2.everything({
         sources: 'crypto-coins-news',
         language: 'en',
         sortBy: 'publishedAt',
