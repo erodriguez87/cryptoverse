@@ -125,7 +125,9 @@ font-family: 'Roboto', sans-serif;
   }
 
 /* Compare */
-
+#buttonForComp {
+  margin-top: 40px;
+}
 /* Dashboard */
 
 /* Footer */
