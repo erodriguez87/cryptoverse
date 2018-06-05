@@ -140,6 +140,9 @@ font-family: 'Roboto', sans-serif;
   }
 
 /* Compare */
+#buttonForComp {
+  margin-top: 40px;
+}
 
 /* Footer */
   .page-footer{

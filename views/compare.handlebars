@@ -9,11 +9,12 @@
   <div class = "comparison-selectors">
     <div class = "container">
       <div class = "col s12">
-        <div class = "selectors">
+        <div class = "selectors ">
           <div class = "row">
             <div class="input-field col s4">
-              <select id="coinOption1">
-                <option value="" disabled selected>Choose a Currency</option>
+              <p id="coinCompare1">Choose a currency</p>
+              <select id="coinOption1 ">
+                <option value="" disabled selected></option>
                 <option value="ada">Cardano (ADA)</option>
                 <option value="bat">Basic Attention Token (BAT)</option>
                 <option value="btc">Bitcoin (BTC)</option>
@@ -27,9 +28,16 @@
               </select>
             </div>
 
-            <div class="input-field col s4" >
+            <div class="col s1"></div>
+            <div class ="col s2 rounded" id="buttonForComp">
+              <button class="waves-effect waves-light btn center red lighten-2 valign-wrapper" id="compareBtn">Beep Boop.</button>
+            </div>
+            <div class="col s1"></div>
+
+            <div class="input-field col s4 rounded" >
+              <p id="coinCompare1">Choose a currency</p>
               <select id="coinOption2">
-                <option value="" disabled selected>Choose a Currency</option>
+                <option value="" disabled selected></option>
                 <option value="ada">Cardano (ADA)</option>
                 <option value="bat">Basic Attention Token (BAT)</option>
                 <option value="btc">Bitcoin (BTC)</option>
@@ -43,9 +51,7 @@
               </select>
             </div>
             
-            <div class ="col s2">
-              <button class="waves-effect waves-light btn center" id="compareBtn">Beep Boop.</button>
-            </div>
+            
         
           </div>
         </div>
