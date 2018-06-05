@@ -12,12 +12,17 @@ font-family: 'Roboto', sans-serif;
   }
 
   nav {
+    height: 80px;
     /* padding-bottom: 20px 0; */
     /* margin: 10px 0; */
   }
   .nav-wrapper {
     background-color: #192231;
     /* padding: 10px 0;  */
+  }
+
+  .menuIcon {
+    font-size: 80px
   }
 
   #button {
@@ -62,9 +67,14 @@ font-family: 'Roboto', sans-serif;
     cursor: pointer;
   }
 
+<<<<<<< HEAD
   .news-section img{
     opacity: .6;
   }
+=======
+
+
+>>>>>>> 7609944538bad9ab9f675d1fe3ea34bc2656e554
 /* Learn */
   HEAD
   /* Added CSS for the Pie Chart */
@@ -127,9 +137,18 @@ font-family: 'Roboto', sans-serif;
     padding: 20px 0;
   }
 
-/* Compare */
+  .coinBtns {
+    cursor: pointer;
+  }
 
-/* Dashboard */
+  .slideImages {
+    border-radius: 20px; 
+  }
+
+/* Compare */
+#buttonForComp {
+  margin-top: 40px;
+}
 
 /* Footer */
   .page-footer{

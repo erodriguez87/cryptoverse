@@ -23,5 +23,7 @@ $.ajax({url: currentURL + "/api/news", method: "GET"})
 })
 }
 
+
+
 getNews();
       
